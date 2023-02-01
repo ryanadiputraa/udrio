@@ -1,19 +1,21 @@
 import Image from "next/image"
 import Link from "next/link"
 import { AiOutlinePhone, AiOutlineShoppingCart } from "react-icons/ai"
+import { IoLocationOutline } from "react-icons/io5"
 import { BsPersonCircle } from "react-icons/bs"
 
 export default function Header() {
   return (
     <header className="w-full flex flex-col justify-center gap-1 py-4 px-[2%]">
-      <span className="flex items-center text-sm text-grey">
-        Senin-Sabtu 08:00-21:00 | <AiOutlinePhone /> 08114548080
+      <span className="flex items-center sm:text-sm text-xs text-grey">
+        <IoLocationOutline />
+        Jl.Tadulako, Palu | <AiOutlinePhone /> 08114548080
       </span>
       <div className="flex justify-between items-center gap-4">
         <Link href={"/"}>
           <Image
             src={"/images/logo.png"}
-            width={140}
+            width={160}
             height={100}
             className="max-h-14"
             alt="Rio Digital Printing"

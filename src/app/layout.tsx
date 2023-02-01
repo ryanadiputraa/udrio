@@ -11,7 +11,7 @@ export default function RootLayout({
       <head />
       <body>
         <Header />
-        <main className="px-[2%]">{children}</main>
+        <main className="px-[2%] overflow-hidden">{children}</main>
       </body>
     </html>
   )
