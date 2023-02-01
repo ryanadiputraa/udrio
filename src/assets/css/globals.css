@@ -4,6 +4,15 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer components {
+  .flexrc {
+    @apply flex justify-between items-center;
+  }
+  .flexcc {
+    @apply flex flex-col justify-center items-center;
+  }
+}
+
 * {
   box-sizing: border-box;
   padding: 0;

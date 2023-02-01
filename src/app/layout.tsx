@@ -1,4 +1,5 @@
 import "assets/css/globals.css"
+import Header from "components/header"
 
 export default function RootLayout({
   children,
@@ -8,7 +9,10 @@ export default function RootLayout({
   return (
     <html lang="id">
       <head />
-      <body>{children}</body>
+      <body>
+        <Header />
+        <main>{children}</main>
+      </body>
     </html>
   )
 }
