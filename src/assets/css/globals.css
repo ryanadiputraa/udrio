@@ -6,7 +6,7 @@
 
 @layer components {
   .flexrc {
-    @apply flex justify-between items-center;
+    @apply flex justify-center items-center;
   }
   .flexcc {
     @apply flex flex-col justify-center items-center;

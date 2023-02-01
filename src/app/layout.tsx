@@ -9,7 +9,7 @@ export default function RootLayout({
   return (
     <html lang="id">
       <head />
-      <body>
+      <body className="min-h-screen">
         <Header />
         <main className="px-[2%] overflow-hidden">{children}</main>
       </body>
