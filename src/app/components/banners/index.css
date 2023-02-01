@@ -33,3 +33,15 @@
 .slick-dots button::before {
   display: none;
 }
+
+@media screen and (max-width: 639px) {
+  .slick-dots li {
+    width: 0.2rem;
+    height: 0.2rem;
+  }
+
+  .slick-dots .slick-active {
+    width: 1rem;
+    height: 0.2rem;
+  }
+}

@@ -8,7 +8,7 @@ import "./index.css"
 
 const banners = Array(12).fill(0)
 
-export default function Banners() {
+export function Banners() {
   const settings: Settings = {
     autoplay: true,
     dots: true,
@@ -29,7 +29,7 @@ export default function Banners() {
       {banners.map((_, idx) => (
         <img
           key={idx}
-          className="rounded-xl"
+          className="rounded-xl min-h-[7rem]"
           src={`/images/banners/banner-${idx + 1}.jpeg`}
           alt="banner"
         />

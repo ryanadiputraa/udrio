@@ -4,7 +4,7 @@ import { AiOutlinePhone, AiOutlineShoppingCart } from "react-icons/ai"
 import { IoLocationOutline } from "react-icons/io5"
 import { BsPersonCircle } from "react-icons/bs"
 
-export default function Header() {
+export function Header() {
   return (
     <header className="w-full flex flex-col justify-center gap-1 py-4 px-[2%]">
       <span className="flex items-center sm:text-sm text-xs text-grey">

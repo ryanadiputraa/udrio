@@ -1,4 +1,4 @@
-export interface IProducts {
+export interface IProduct {
   id: string
   product_name: string
   product_category: {
@@ -10,7 +10,7 @@ export interface IProducts {
   is_available: boolean
   description: string
   min_order: number
-  images: IProductImages[]
+  images?: IProductImages[]
   created_at: string
   updated_at: string
 }
@@ -24,7 +24,7 @@ interface Props {
   searchParams?: { [key: string]: string | string[] | undefined }
 }
 
-async function fetchProducts(categoryId: number): Promise<IProducts[]> {
+async function fetchProducts(categoryId: number): Promise<IProduct[]> {
   try {
     const resp = await fetch(
       `${process.env.NEXT_PUBLIC_BASE_API_URL}api/products?category_id=${categoryId}&size=20`
@@ -38,7 +38,8 @@ async function fetchProducts(categoryId: number): Promise<IProducts[]> {
 }
 
 export default async function Products({ searchParams }: Props) {
-  const products = await fetchProducts(Number(searchParams?.category_id ?? 0))
+  const categoryId = Number(searchParams?.category_id) ?? 0
+  const products = categoryId ? await fetchProducts(categoryId) : []
 
   return <div></div>
 }
