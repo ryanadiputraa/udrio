@@ -16,6 +16,7 @@ export default function Banners() {
     speed: 500,
     slidesToShow: 1,
     slidesToScroll: 1,
+    arrows: false,
     appendDots: (dots) => <ul>{dots}</ul>,
     customPaging: (idx) => <button key={idx} className="dot" />,
   }
