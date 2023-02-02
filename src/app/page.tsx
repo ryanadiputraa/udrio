@@ -42,13 +42,15 @@ export default async function Home() {
   const products = await fetchProducts()
 
   return (
-    <>
+    <div className="px-[2%]">
       <Banners />
-      <div className="sm:flexrc flex justify-start gap-4 pb-4 my-4 overflow-auto">
+      <div className="sm:flexrc flex justify-start sm:flex-wrap gap-4 pb-4 my-4 overflow-auto">
         {categories.map((category) => (
           <Link
             key={category.category_id}
-            href={`/products?category_id=${category.category_id}`}
+            href={`/products?category=${encodeURIComponent(
+              category.category
+            )}&id=${category.category_id}`}
           >
             <button className="sm:w-32 w-24 h-28 sm:text-sm text-xs p-2 text-center flexcc shadow-md rounded-lg hover:scale-105 transition-all">
               <Image
@@ -69,6 +71,6 @@ export default async function Home() {
           </Link>
         ))}
       </div>
-    </>
+    </div>
   )
 }

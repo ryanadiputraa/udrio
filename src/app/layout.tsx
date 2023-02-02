@@ -11,9 +11,7 @@ export default function RootLayout({
       <head />
       <body className="min-h-screen">
         <Header />
-        <main className="px-[2%] pb-4 overflow-hidden min-h-[88vh]">
-          {children}
-        </main>
+        <main className="pb-4 overflow-hidden min-h-[88vh]">{children}</main>
       </body>
     </html>
   )
