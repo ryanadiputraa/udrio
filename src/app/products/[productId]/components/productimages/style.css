@@ -1,0 +1,22 @@
+.slick-arrow {
+  display: none !important;
+  color: black !important;
+  z-index: 99;
+}
+.slick-prev {
+  left: -2% !important;
+}
+.slick-next {
+  right: -2% !important;
+}
+
+.slick-slide {
+  display: grid !important;
+  place-items: center;
+}
+
+@media screen and (min-width: 640px) {
+  .slick-arrow {
+    display: block !important;
+  }
+}

@@ -6,7 +6,7 @@ import { BsPersonCircle } from "react-icons/bs"
 
 export function Header() {
   return (
-    <header className="w-full flex flex-col justify-center gap-1 py-4 px-[2%]">
+    <header className="w-full flex flex-col justify-center gap-1 pt-4 pb-2 px-[2%] shadow-md mb-4">
       <span className="flex items-center sm:text-sm text-xs text-grey">
         <IoLocationOutline />
         Jl.Tadulako, Palu | <AiOutlinePhone /> 08114548080

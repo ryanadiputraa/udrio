@@ -1,5 +1,5 @@
 import "assets/css/globals.css"
-import { Header } from "components/header"
+import { Header } from "app/components/header"
 
 export default function RootLayout({
   children,
@@ -11,7 +11,7 @@ export default function RootLayout({
       <head />
       <body className="min-h-screen">
         <Header />
-        <main className="pb-4 overflow-hidden min-h-[88vh]">{children}</main>
+        <main className="pb-4 overflow-hidden min-h-[85vh]">{children}</main>
       </body>
     </html>
   )

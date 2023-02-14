@@ -44,7 +44,7 @@ export default async function Home() {
   return (
     <div className="px-[2%]">
       <Banners />
-      <div className="sm:flexrc flex justify-start sm:flex-wrap gap-4 pb-4 my-4 overflow-auto">
+      <div className="sm:flexrc flex sm:justify-center justify-start sm:flex-wrap gap-4 pb-4 my-4 overflow-auto">
         {categories.map((category) => (
           <Link
             key={category.category_id}
