@@ -48,10 +48,10 @@ export function ProductImages({ images }: Props) {
         {images.map((image) => (
           <Image
             src={image.url}
-            width={80}
-            height={80}
+            width={100}
+            height={100}
             alt={image.url}
-            className="w-20 p-2 cursor-pointer"
+            className="p-2 w-20 cursor-pointer rounded-xl"
             onClick={() => setSelected(image.url)}
           />
         ))}

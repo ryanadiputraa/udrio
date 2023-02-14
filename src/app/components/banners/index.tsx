@@ -24,7 +24,7 @@ export function Banners() {
   return (
     <Slider
       {...settings}
-      className="sm:w-[102%] w-[108%] sm:right-[1%] right-[4%]"
+      className="banners sm:w-[102%] w-[108%] sm:right-[1%] right-[4%]"
     >
       {banners.map((_, idx) => (
         <img

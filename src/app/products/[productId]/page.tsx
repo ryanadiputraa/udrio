@@ -2,6 +2,8 @@ import Link from "next/link"
 import { MdPlayArrow } from "react-icons/md"
 
 import { IProduct } from "../page"
+import { ProductDetails } from "./components/details"
+import { ProductOrder } from "./components/order"
 import { ProductImages } from "./components/productimages"
 
 interface Props {
@@ -40,7 +42,15 @@ export default async function Product({ params }: Props) {
         <MdPlayArrow />
         {product?.product_name}
       </div>
-      <ProductImages images={product?.images ?? []} />
+      <div className="product-detail flex flex-wrap items-start justify-between">
+        {product && (
+          <>
+            <ProductImages images={product.images ?? []} />
+            <ProductDetails product={product} />
+            <ProductOrder product={product} />
+          </>
+        )}
+      </div>
     </div>
   )
 }
