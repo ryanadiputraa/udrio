@@ -11,6 +11,8 @@ interface Props {
   product: IProduct
 }
 
+const MAX_ORDER = 1000
+
 export function ProductOrder({ product }: Props) {
   const [count, setCount] = useState<number>(product.min_order)
   const [subtotal, _] = useState<number>(product.price)
@@ -21,10 +23,18 @@ export function ProductOrder({ product }: Props) {
       return (current -= 1)
     })
 
-  const handleCountUp = () => setCount((current) => (current += 1))
+  const handleCountUp = () =>
+    setCount((current) => {
+      if (current + 1 > MAX_ORDER) return current
+      return (current += 1)
+    })
 
   const hanldeInputCount = (e: ChangeEvent<HTMLInputElement>) => {
-    setCount(Number(e.target.value))
+    const val = Number(e.target.value)
+    setCount((current) => {
+      if (val > MAX_ORDER) return current
+      return val
+    })
   }
   const handleInputCountKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
     const disabledKey = ["-", "+", ",", "ArrowUp", "ArrowDown"]
