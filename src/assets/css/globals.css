@@ -1,15 +1,28 @@
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@100;300;400;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@100;300;400;500;600;700&display=swap");
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
+@layer base {
+  input[type="number"]::-webkit-inner-spin-button,
+  input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+}
 @layer components {
   .flexrc {
     @apply flex justify-center items-center;
   }
   .flexcc {
     @apply flex flex-col justify-center items-center;
+  }
+  .btn-primary {
+    @apply text-center bg-primary text-white;
+  }
+  .btn-secondary {
+    @apply text-center text-primary border-[1.5px] border-primary border-solid;
   }
 }
 
