@@ -1,8 +1,10 @@
 "use client"
 
-import { IProduct } from "app/products/page"
+import { KeyboardEvent } from "react"
 import Image from "next/image"
 import { ChangeEvent, useState } from "react"
+
+import { IProduct } from "app/products/page"
 import { formatCurrency } from "utils/currency"
 
 interface Props {
@@ -21,9 +23,12 @@ export function ProductOrder({ product }: Props) {
 
   const handleCountUp = () => setCount((current) => (current += 1))
 
-  // TODO: handle input count
   const hanldeInputCount = (e: ChangeEvent<HTMLInputElement>) => {
-    console.log(e.target.value)
+    setCount(Number(e.target.value))
+  }
+  const handleInputCountKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
+    const disabledKey = ["-", "+", ",", "ArrowUp", "ArrowDown"]
+    if (disabledKey.includes(e.key)) e.preventDefault()
   }
 
   // TODO: handle cart
@@ -47,19 +52,17 @@ export function ProductOrder({ product }: Props) {
       </span>
       <div className="flex items-center gap-2 mt-2 ">
         <div className="flex justify-between w-32 rounded-md overflow-hidden border-grey border-[1px]">
-          <button
-            className="w-1/4 bg-light-grey px-4"
-            onClick={handleCountDown}
-          >
+          <button className="w-1/4 bg-light-grey" onClick={handleCountDown}>
             -
           </button>
           <input
             type="number"
-            className="w-full outline-none text-center"
+            className="w-2/4 outline-none text-center"
             value={count}
             onChange={(e) => hanldeInputCount(e)}
+            onKeyDown={(e) => handleInputCountKeyDown(e)}
           />
-          <button className="w-1/4 bg-light-grey px-4" onClick={handleCountUp}>
+          <button className="w-1/4 bg-light-grey" onClick={handleCountUp}>
             +
           </button>
         </div>
@@ -80,7 +83,10 @@ export function ProductOrder({ product }: Props) {
           {formatCurrency(subtotal * count)}
         </span>
       </div>
-      <button className="btn-primary w-full font-medium rounded-md py-1 mt-4">
+      <button
+        className="btn-primary w-full font-medium rounded-md py-1 mt-4"
+        onClick={onAddToCart}
+      >
         + Keranjang
       </button>
       <button
