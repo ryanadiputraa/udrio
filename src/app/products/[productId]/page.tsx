@@ -1,7 +1,7 @@
 import Link from "next/link"
 import { MdPlayArrow } from "react-icons/md"
 
-import { IProduct } from "../page"
+import { useFetchProductDetail } from "hooks/products"
 import { ProductDetails } from "./components/details"
 import { ProductOrder } from "./components/order"
 import { ProductImages } from "./components/productimages"
@@ -10,21 +10,8 @@ interface Props {
   params: { productId: string }
 }
 
-async function fetchProduct(productId: string): Promise<IProduct | null> {
-  try {
-    const resp = await fetch(
-      `${process.env.NEXT_PUBLIC_BASE_API_URL}api/products/${productId}`
-    )
-    const json = await resp.json()
-    return json.data
-  } catch (error) {
-    console.error(error)
-    return null
-  }
-}
-
 export default async function Product({ params }: Props) {
-  const product = await fetchProduct(params?.productId)
+  const product = await useFetchProductDetail(params?.productId)
   const categoryLink = `/products?category=${encodeURIComponent(
     String(product?.product_category.category)
   )}&id=${product?.product_category.category_id}`

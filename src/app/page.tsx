@@ -1,45 +1,14 @@
 import Image from "next/image"
 import Link from "next/link"
 
+import { useFetchCategories } from "hooks/categories"
+import { useFetchProducts } from "hooks/products"
 import { Banners } from "./components/banners"
 import { ProductCard } from "./products/components/productcard"
-import { IProduct } from "./products/page"
-
-interface Category {
-  category_id: number
-  category: string
-  icon: string
-}
-
-async function fetchCategories(): Promise<Category[]> {
-  try {
-    const resp = await fetch(
-      `${process.env.NEXT_PUBLIC_BASE_API_URL}api/categories/`
-    )
-    const json = await resp.json()
-    return json.data
-  } catch (error) {
-    console.error(error)
-    return []
-  }
-}
-
-async function fetchProducts(): Promise<IProduct[]> {
-  try {
-    const resp = await fetch(
-      `${process.env.NEXT_PUBLIC_BASE_API_URL}api/products?size=20`
-    )
-    const json = await resp.json()
-    return json.data
-  } catch (error) {
-    console.error(error)
-    return []
-  }
-}
 
 export default async function Home() {
-  const categories = await fetchCategories()
-  const products = await fetchProducts()
+  const categories = await useFetchCategories()
+  const products = await useFetchProducts()
 
   return (
     <div className="px-[2%]">

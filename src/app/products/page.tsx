@@ -1,51 +1,17 @@
 import Link from "next/link"
 import { MdPlayArrow } from "react-icons/md"
 
+import { useFetchProducts } from "hooks/products"
 import { ProductCard } from "./components/productcard"
-
-export interface IProduct {
-  id: string
-  product_name: string
-  product_category: {
-    category_id: number
-    category: string
-    icon: string
-  }
-  price: number
-  is_available: boolean
-  description: string
-  min_order: number
-  images?: IProductImages[]
-  created_at: string
-  updated_at: string
-}
-
-interface IProductImages {
-  image_id: string
-  url: string
-}
 
 interface Props {
   searchParams?: { [key: string]: string | string[] | undefined }
 }
 
-async function fetchProducts(categoryId: number): Promise<IProduct[]> {
-  try {
-    const resp = await fetch(
-      `${process.env.NEXT_PUBLIC_BASE_API_URL}api/products?category_id=${categoryId}&size=20`
-    )
-    const json = await resp.json()
-    return json.data
-  } catch (error) {
-    console.error(error)
-    return []
-  }
-}
-
 export default async function Products({ searchParams }: Props) {
   const categoryId = Number(searchParams?.["id"]) ?? 0
   const category = searchParams?.["category"] ?? ""
-  const products = categoryId ? await fetchProducts(categoryId) : []
+  const products = categoryId ? await useFetchProducts(categoryId) : []
 
   return (
     <>

@@ -1,6 +1,6 @@
 import Image from "next/image"
 
-import { IProduct } from "app/products/page"
+import { IProduct } from "hooks/products"
 import { formatCurrency } from "utils/currency"
 
 interface Props {
