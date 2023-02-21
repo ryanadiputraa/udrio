@@ -4,7 +4,7 @@ export interface Category {
   icon: string
 }
 
-export async function useFetchCategories(): Promise<Category[]> {
+export async function fetchCategories(): Promise<Category[]> {
   try {
     const resp = await fetch(
       `${process.env.NEXT_PUBLIC_BASE_API_URL}api/categories/`

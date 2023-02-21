@@ -1,7 +1,7 @@
 import Link from "next/link"
 import { MdPlayArrow } from "react-icons/md"
 
-import { useFetchProducts } from "hooks/products"
+import { fetchProducts } from "data/products"
 import { ProductCard } from "./components/productcard"
 
 interface Props {
@@ -11,7 +11,7 @@ interface Props {
 export default async function Products({ searchParams }: Props) {
   const categoryId = Number(searchParams?.["id"]) ?? 0
   const category = searchParams?.["category"] ?? ""
-  const products = categoryId ? await useFetchProducts(categoryId) : []
+  const products = categoryId ? await fetchProducts(categoryId) : []
 
   return (
     <>

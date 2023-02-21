@@ -1,14 +1,14 @@
 import Image from "next/image"
 import Link from "next/link"
 
-import { useFetchCategories } from "hooks/categories"
-import { useFetchProducts } from "hooks/products"
+import { fetchCategories } from "data/categories"
+import { fetchProducts } from "data/products"
 import { Banners } from "./components/banners"
 import { ProductCard } from "./products/components/productcard"
 
 export default async function Home() {
-  const categories = await useFetchCategories()
-  const products = await useFetchProducts()
+  const categories = await fetchCategories()
+  const products = await fetchProducts()
 
   return (
     <div className="px-[2%]">

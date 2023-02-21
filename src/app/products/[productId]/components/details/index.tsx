@@ -2,7 +2,7 @@ import Image from "next/image"
 import { MdOutlineEditNote } from "react-icons/md"
 import { RxDotFilled } from "react-icons/rx"
 
-import { IProduct } from "hooks/products"
+import { IProduct } from "data/products"
 import { formatCurrency } from "utils/currency"
 
 interface Props {

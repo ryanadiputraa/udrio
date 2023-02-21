@@ -20,9 +20,7 @@ export interface IProductImages {
   url: string
 }
 
-export async function useFetchProducts(
-  categoryId?: number
-): Promise<IProduct[]> {
+export async function fetchProducts(categoryId?: number): Promise<IProduct[]> {
   try {
     const resp = await fetch(
       `${process.env.NEXT_PUBLIC_BASE_API_URL}api/products${
@@ -37,7 +35,7 @@ export async function useFetchProducts(
   }
 }
 
-export async function useFetchProductDetail(
+export async function fetchProductDetail(
   productId: string
 ): Promise<IProduct | null> {
   try {

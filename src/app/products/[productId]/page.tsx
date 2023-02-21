@@ -1,7 +1,7 @@
 import Link from "next/link"
 import { MdPlayArrow } from "react-icons/md"
 
-import { useFetchProductDetail } from "hooks/products"
+import { fetchProductDetail } from "data/products"
 import { ProductDetails } from "./components/details"
 import { ProductOrder } from "./components/order"
 import { ProductImages } from "./components/productimages"
@@ -11,7 +11,7 @@ interface Props {
 }
 
 export default async function Product({ params }: Props) {
-  const product = await useFetchProductDetail(params?.productId)
+  const product = await fetchProductDetail(params?.productId)
   const categoryLink = `/products?category=${encodeURIComponent(
     String(product?.product_category.category)
   )}&id=${product?.product_category.category_id}`

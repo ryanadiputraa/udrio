@@ -1,13 +1,15 @@
 "use client"
 
-import { IToken, setToken } from "utils/token"
 import { redirect } from "next/navigation"
+import { IToken, useToken } from "hooks/token"
 
 interface Props {
   searchParams?: { [key: string]: string | undefined }
 }
 
 export default function ({ searchParams }: Props) {
+  const { setToken } = useToken()
+
   const token: IToken = {
     accessToken: searchParams?.["access_token"] ?? "",
     expiresIn: Number(searchParams?.["expires_in"]),
@@ -15,7 +17,7 @@ export default function ({ searchParams }: Props) {
   }
 
   if (token.accessToken && window !== undefined) {
-    setToken
+    setToken(token)
   }
 
   redirect("/")
