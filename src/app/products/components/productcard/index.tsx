@@ -15,7 +15,7 @@ export function ProductCard({ product }: Props) {
         width={120}
         height={200}
         alt={product.product_name}
-        className="w-full"
+        className="w-full h-auto"
       />
       <div className="py-2 px-4">
         <h4 className="font-bold sm:text-md text:sm line-clamp-2">

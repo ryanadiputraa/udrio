@@ -16,7 +16,7 @@ export default function ({ searchParams }: Props) {
     refreshToken: searchParams?.["refresh_token"] ?? "",
   }
 
-  if (token.accessToken && window !== undefined) {
+  if (token.accessToken) {
     setToken(token)
   }
 

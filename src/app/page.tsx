@@ -11,7 +11,7 @@ export default async function Home() {
   const products = await fetchProducts()
 
   return (
-    <div className="px-[2%]">
+    <>
       <Banners />
       <div className="sm:flexrc flex sm:justify-center justify-start sm:flex-wrap gap-4 pb-4 my-4 overflow-auto">
         {categories.map((category) => (
@@ -40,6 +40,6 @@ export default async function Home() {
           </Link>
         ))}
       </div>
-    </div>
+    </>
   )
 }

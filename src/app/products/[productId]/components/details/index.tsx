@@ -28,7 +28,7 @@ export function ProductDetails({ product }: Props) {
       <h4 className="text-2xl font-bold text-primary">
         {formatCurrency(product.price)}
       </h4>
-      <p className="text-sm text-dark-grey">{product.description}</p>
+      <p className="text-sm text-dark-grey mb-4">{product.description}</p>
     </div>
   )
 }

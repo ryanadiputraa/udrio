@@ -53,7 +53,7 @@ export function ProductOrder({ product }: Props) {
       <span className="flex items-center gap-1 border-grey border-b-[1px] py-2">
         <Image
           src={product.images?.[0]?.url ?? ""}
-          className="rounded-md"
+          className="rounded-md w-auto"
           width={45}
           height={65}
           alt={product.product_name}
@@ -88,8 +88,8 @@ export function ProductOrder({ product }: Props) {
         </span>
       </div>
       <div className="flex justify-between items-center mt-4">
-        <h4 className="font-light">Subtotal</h4>
-        <span className="font-bold text-xl">
+        <h4 className="font-light text-sm">Subtotal</h4>
+        <span className="font-bold text-lg">
           {formatCurrency(subtotal * count)}
         </span>
       </div>
