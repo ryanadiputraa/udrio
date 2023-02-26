@@ -1,30 +1,37 @@
-import Image from 'next/image'
-import Link from 'next/link'
-import { AiOutlinePhone, AiOutlineShoppingCart } from 'react-icons/ai'
-import { IoLocationOutline } from 'react-icons/io5'
-import { BsPersonCircle } from 'react-icons/bs'
+"use client"
+
+import Image from "next/image"
+import Link from "next/link"
+import { AiOutlinePhone, AiOutlineShoppingCart } from "react-icons/ai"
+import { IoLocationOutline } from "react-icons/io5"
+import { BsPersonCircle } from "react-icons/bs"
+
+import { useFetch } from "hooks/fetch"
 
 export function Header() {
+  const fetch = useFetch()
+
   return (
     <header className="w-full shadow-md mb-4 px-[2%]">
-      <div className="flex w-full max-w-7xl flex-col justify-center gap-1 mx-auto my-0 pt-4 pb-2">
+      <div className="flex w-full max-w-7xl flex-col justify-center gap-1 mx-auto my-0 py-2">
         <span className="flex items-center sm:text-sm text-xs text-grey">
           <IoLocationOutline />
           Jl.Tadulako, Palu | <AiOutlinePhone /> 08114548080
         </span>
         <div className="flex justify-between items-center gap-4">
-          <Link href={'/'}>
+          <Link href={"/"}>
             <Image
-              src={'/images/logo.png'}
+              src={"/images/logo.png"}
               width={160}
               height={100}
+              priority
               className="max-h-14 w-auto"
               alt="Rio Digital Printing"
             />
           </Link>
           <input
             type="text"
-            placeholder={'Cari...'}
+            placeholder={"Cari..."}
             className="w-1/2 border-2 border-solid border-grey py-1 px-4 rounded-2xl"
           />
           <div className="flexrc text-grey sm:gap-6 gap-2">
