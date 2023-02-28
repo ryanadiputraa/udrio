@@ -5,11 +5,13 @@ import Link from "next/link"
 import { AiOutlinePhone, AiOutlineShoppingCart } from "react-icons/ai"
 import { IoLocationOutline } from "react-icons/io5"
 import { BsPersonCircle } from "react-icons/bs"
+import useSWR from "swr"
 
 import { useFetch } from "hooks/fetch"
 
-export function Header() {
-  const fetch = useFetch()
+export default function Header() {
+  const { getUserData } = useFetch()
+  const { data } = useSWR("userData", getUserData)
 
   return (
     <header className="w-full shadow-md mb-4 px-[2%]">
@@ -34,12 +36,22 @@ export function Header() {
             placeholder={"Cari..."}
             className="w-1/2 border-2 border-solid border-grey py-1 px-4 rounded-2xl"
           />
-          <div className="flexrc text-grey sm:gap-6 gap-2">
+          <div className="flexrc text-grey sm:gap-4 gap-2">
             <button>
               <AiOutlineShoppingCart className="sm:text-4xl text-3xl" />
             </button>
             <button>
-              <BsPersonCircle className="sm:text-3xl text-2xl" />
+              {data ? (
+                <Image
+                  src={data.picture}
+                  width={30}
+                  height={30}
+                  className=" min-w-[2rem] rounded-full"
+                  alt={data.name}
+                />
+              ) : (
+                <BsPersonCircle className="sm:text-3xl text-2xl" />
+              )}
             </button>
           </div>
         </div>

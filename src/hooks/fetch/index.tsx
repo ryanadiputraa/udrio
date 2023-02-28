@@ -1,5 +1,6 @@
 "use client"
 
+import { fetchUserData } from "data/user"
 import { IToken, useToken } from "hooks/token"
 
 export const useFetch = () => {
@@ -32,4 +33,11 @@ export const useFetch = () => {
   if (!hasValidToken()) {
     refresh()
   }
+
+  const authHeaders: HeadersInit = {
+    Authorization: `Bearer ${accessToken}`,
+  }
+  const getUserData = () => fetchUserData(authHeaders)
+
+  return { getUserData }
 }
