@@ -5,13 +5,22 @@ import Link from "next/link"
 import { AiOutlinePhone, AiOutlineShoppingCart } from "react-icons/ai"
 import { IoLocationOutline } from "react-icons/io5"
 import { BsPersonCircle } from "react-icons/bs"
+import { useContext, useEffect } from "react"
 import useSWR from "swr"
 
 import { useFetch } from "hooks/fetch"
+import { AppContext } from "context"
 
 export default function Header() {
+  const { mainDispatch } = useContext(AppContext)
   const { getUserData } = useFetch()
+
   const { data } = useSWR("userData", getUserData)
+  useEffect(() => {
+    if (data) {
+      mainDispatch({ type: "SET_USER_DATA", payload: data })
+    }
+  }, [data])
 
   return (
     <header className="w-full shadow-md mb-4 px-[2%]">

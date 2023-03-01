@@ -25,7 +25,10 @@ export async function fetchProducts(categoryId?: number): Promise<IProduct[]> {
     const resp = await fetch(
       `${process.env.NEXT_PUBLIC_BASE_API_URL}api/products${
         categoryId ? "?category_id=${categoryId}&size=20" : ""
-      }`
+      }`,
+      {
+        next: { revalidate: 60 },
+      }
     )
     const json = await resp.json()
     return json.data
@@ -40,7 +43,8 @@ export async function fetchProductDetail(
 ): Promise<IProduct | null> {
   try {
     const resp = await fetch(
-      `${process.env.NEXT_PUBLIC_BASE_API_URL}api/products/${productId}`
+      `${process.env.NEXT_PUBLIC_BASE_API_URL}api/products/${productId}`,
+      { next: { revalidate: 60 } }
     )
     const json = await resp.json()
     return json.data
