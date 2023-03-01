@@ -13,7 +13,7 @@ export default function RootLayout({
       <body className="min-h-screen">
         <AppProvider>
           <Header />
-          <main className="w-full max-w-7xl pb-4 overflow-hidden min-h-[80vh] mx-auto my-0 px-[2%]">
+          <main className="w-full max-w-7xl pb-4 overflow-hidden min-h-[85vh] mx-auto my-0 px-[2%]">
             {children}
           </main>
         </AppProvider>
