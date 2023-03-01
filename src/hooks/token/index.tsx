@@ -11,12 +11,11 @@ export const useToken = () => {
 
   const hasValidToken = (): boolean => {
     const jsonToken = JSON.parse(ls?.getItem("jwt_token") ?? "")
+    if (!jsonToken) return false
 
-    const d = new Date()
-    const isNotExpire =
-      jsonToken?.["expiresIn"] > Math.floor(d.getTime() / 1000)
+    const isNotExpire = jsonToken?.["expiresIn"] > Math.floor(Date.now() / 1000)
 
-    return Boolean(jsonToken?.["accessToken"]) && isNotExpire
+    return isNotExpire
   }
 
   const setToken = (token: IToken) => {
