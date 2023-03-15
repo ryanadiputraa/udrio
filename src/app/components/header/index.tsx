@@ -12,7 +12,7 @@ import { useFetch } from "hooks/fetch"
 import { AppContext } from "context"
 
 export default function Header() {
-  const { mainDispatch } = useContext(AppContext)
+  const { main, mainDispatch } = useContext(AppContext)
   const { getUserData } = useFetch()
 
   const { data } = useSWR("userData", getUserData)
@@ -49,13 +49,13 @@ export default function Header() {
             <AiOutlineShoppingCart className="sm:text-4xl text-3xl" />
           </button>
           <button>
-            {data ? (
+            {main.userData.id ? (
               <Image
-                src={data.picture}
+                src={main.userData.picture}
                 width={30}
                 height={30}
                 className=" min-w-[2rem] rounded-full"
-                alt={data.name}
+                alt={main.userData.first_name}
               />
             ) : (
               <BsPersonCircle className="sm:text-3xl text-2xl" />
