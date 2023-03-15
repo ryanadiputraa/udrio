@@ -10,12 +10,13 @@ export const useToken = () => {
   const ls = typeof window !== "undefined" ? window.localStorage : null
 
   const hasValidToken = (): boolean => {
-    const jsonToken = JSON.parse(ls?.getItem("jwt_token") ?? "")
-    if (!jsonToken) return false
+    let token: IToken
+    const tokenString = ls?.getItem("jwt_token")
 
-    const isNotExpire = jsonToken?.["expiresIn"] > Math.floor(Date.now() / 1000)
+    if (!tokenString) return false
+    token = JSON.parse(tokenString)
 
-    return isNotExpire
+    return token.expiresIn > Math.floor(Date.now() / 1000)
   }
 
   const setToken = (token: IToken) => {
@@ -23,12 +24,17 @@ export const useToken = () => {
   }
 
   const getToken = (): IToken => {
-    const jsonToken = JSON.parse(ls?.getItem("jwt_token") ?? "")
-    const token: IToken = {
-      accessToken: jsonToken?.["accessToken"] ?? "",
-      expiresIn: jsonToken?.["expiresIn"] ?? 0,
-      refreshToken: jsonToken?.["refreshToken"] ?? "",
-    }
+    let token: IToken
+    const tokenString = ls?.getItem("jwt_token")
+
+    if (!tokenString)
+      return {
+        accessToken: "",
+        expiresIn: 0,
+        refreshToken: "",
+      }
+
+    token = JSON.parse(tokenString)
     return token
   }
 

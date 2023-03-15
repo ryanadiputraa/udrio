@@ -25,12 +25,13 @@ export const useFetch = () => {
         refreshToken: json.data?.refresh_token,
       }
       setToken(token)
+      window.location.reload()
     } catch (error) {
-      window.location.href = `${BASE_URL}oauth/login/google`
+      console.error(error)
     }
   }
 
-  if (!hasValidToken()) {
+  if (accessToken && !hasValidToken()) {
     refresh()
   }
 
