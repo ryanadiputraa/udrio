@@ -7,7 +7,7 @@ interface Props {
   searchParams?: { [key: string]: string | undefined }
 }
 
-export default function ({ searchParams }: Props) {
+export default function Auth({ searchParams }: Props) {
   const { setToken } = useToken()
 
   const token: IToken = {
