@@ -23,7 +23,7 @@ export interface IProductImages {
 export async function fetchProducts(categoryId?: number): Promise<IProduct[]> {
   try {
     const resp = await fetch(
-      `${process.env.NEXT_PUBLIC_BASE_API_URL}api/products${
+      `${process.env.NEXT_PUBLIC_BASE_API_URL}api/products/${
         categoryId ? "?category_id=${categoryId}&size=20" : ""
       }`,
       {

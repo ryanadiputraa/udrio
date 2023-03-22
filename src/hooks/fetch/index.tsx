@@ -38,7 +38,7 @@ export const useFetch = () => {
   const authHeaders: HeadersInit = {
     Authorization: `Bearer ${accessToken}`,
   }
-  const getUserData = () => fetchUserData(authHeaders)
+  const getUserData = () => (accessToken ? fetchUserData(authHeaders) : null)
 
   return { getUserData }
 }

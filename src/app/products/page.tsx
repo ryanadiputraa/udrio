@@ -1,17 +1,20 @@
+"use client"
+
 import Link from "next/link"
 import { MdPlayArrow } from "react-icons/md"
+import { useSearchParams } from "next/navigation"
+import useSWR from "swr"
 
 import { fetchProducts } from "data/products"
 import { ProductCard } from "./components/productcard"
 
-interface Props {
-  searchParams?: { [key: string]: string | string[] | undefined }
-}
+export default function Products() {
+  const params = useSearchParams()
+  const categoryId = Number(params.get("id")) ?? 0
+  const category = params.get("category") ?? ""
 
-export default async function Products({ searchParams }: Props) {
-  const categoryId = Number(searchParams?.["id"]) ?? 0
-  const category = searchParams?.["category"] ?? ""
-  const products = categoryId ? await fetchProducts(categoryId) : []
+  const getProducts = () => fetchProducts(categoryId)
+  const { data: products } = useSWR("productsData", getProducts)
 
   return (
     <>
@@ -30,7 +33,7 @@ export default async function Products({ searchParams }: Props) {
         </div>
       </div>
       <div className="flex sm:justify-start justify-center sm:gap-6 gap-3 items-start flex-wrap sm:pt-52 pt-40 px-[2%]">
-        {products.map((product) => (
+        {products?.map((product) => (
           <Link href={`/products/${product.id}`} key={product.id}>
             <ProductCard product={product} />
           </Link>

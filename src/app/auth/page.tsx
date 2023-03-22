@@ -1,22 +1,18 @@
 "use client"
 
-import { redirect } from "next/navigation"
-import { IToken, useToken } from "hooks/token"
+import { redirect, useSearchParams } from "next/navigation"
 import { ReactNode } from "react"
 
-interface Props {
-  searchParams?: { [key: string]: string | undefined }
-}
+import { IToken, useToken } from "hooks/token"
 
-export default function Auth({
-  searchParams,
-}: Props): ReactNode | Promise<ReactNode> {
+export default function Auth(): ReactNode | Promise<ReactNode> {
+  const params = useSearchParams()
   const { setToken } = useToken()
 
   const token: IToken = {
-    accessToken: searchParams?.["access_token"] ?? "",
-    expiresIn: Number(searchParams?.["expires_in"]),
-    refreshToken: searchParams?.["refresh_token"] ?? "",
+    accessToken: params.get("access_token") ?? "",
+    expiresIn: Number(params.get("expires_in")),
+    refreshToken: params.get("refresh_token") ?? "",
   }
 
   if (token.accessToken) {
