@@ -20,5 +20,5 @@ export default function Auth({ searchParams }: Props) {
     setToken(token)
   }
 
-  redirect("/")
+  return <>{redirect("/")}</>
 }
