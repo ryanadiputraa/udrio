@@ -2,12 +2,15 @@
 
 import { redirect } from "next/navigation"
 import { IToken, useToken } from "hooks/token"
+import { ReactNode } from "react"
 
 interface Props {
   searchParams?: { [key: string]: string | undefined }
 }
 
-export default function Auth({ searchParams }: Props) {
+export default function Auth({
+  searchParams,
+}: Props): ReactNode | Promise<ReactNode> {
   const { setToken } = useToken()
 
   const token: IToken = {
