@@ -1,10 +1,13 @@
 "use client"
 
+import { AppContext } from "context"
 import { fetchUserData } from "data/user"
 import { IToken, useToken } from "hooks/token"
+import { useContext } from "react"
 
 export const useFetch = () => {
   const BASE_URL = String(process.env.NEXT_PUBLIC_BASE_API_URL)
+  const { main } = useContext(AppContext)
   const { hasValidToken, getToken, setToken } = useToken()
   const { accessToken, refreshToken } = getToken()
 
@@ -38,7 +41,8 @@ export const useFetch = () => {
   const authHeaders: HeadersInit = {
     Authorization: `Bearer ${accessToken}`,
   }
-  const getUserData = () => (accessToken ? fetchUserData(authHeaders) : null)
+  const getUserData = () =>
+    accessToken && !main.userData.id ? fetchUserData(authHeaders) : null
 
   return { getUserData }
 }

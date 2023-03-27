@@ -24,7 +24,7 @@ export async function fetchProducts(categoryId?: number): Promise<IProduct[]> {
   try {
     const resp = await fetch(
       `${process.env.NEXT_PUBLIC_BASE_API_URL}api/products/${
-        categoryId ? "?category_id=${categoryId}&size=20" : ""
+        categoryId ? `?category_id=${categoryId}&size=20` : ""
       }`,
       {
         next: { revalidate: 60 },

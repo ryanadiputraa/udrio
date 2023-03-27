@@ -3,18 +3,25 @@
 import Link from "next/link"
 import { MdPlayArrow } from "react-icons/md"
 import { useSearchParams } from "next/navigation"
-import useSWR from "swr"
 
-import { fetchProducts } from "data/products"
+import { fetchProducts, IProduct } from "data/products"
 import { ProductCard } from "./components/productcard"
+import { useEffect, useState } from "react"
 
 export default function Products() {
   const params = useSearchParams()
   const categoryId = Number(params.get("id")) ?? 0
   const category = params.get("category") ?? ""
 
-  const getProducts = () => fetchProducts(categoryId)
-  const { data: products } = useSWR("productsData", getProducts)
+  const [products, setProducts] = useState<IProduct[]>()
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const data = await fetchProducts(categoryId)
+      setProducts(data)
+    }
+    fetchData()
+  }, [])
 
   return (
     <>
