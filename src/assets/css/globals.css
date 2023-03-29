@@ -18,11 +18,14 @@
   .flexcc {
     @apply flex flex-col justify-center items-center;
   }
+  .btn {
+    @apply active:brightness-90 active:scale-95;
+  }
   .btn-primary {
-    @apply text-center bg-primary text-white;
+    @apply btn text-center bg-primary text-white;
   }
   .btn-secondary {
-    @apply text-center text-primary border-[1.5px] border-primary border-solid;
+    @apply btn text-center text-primary border-[1.5px] border-primary border-solid;
   }
 }
 

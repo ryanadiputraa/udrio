@@ -22,7 +22,7 @@ export default function Header() {
       }
     }
     !main.userData.id && fetchData()
-  }, [])
+  }, [getUserData, main.userData.id, mainDispatch])
 
   return (
     <header className="flex w-full flex-col justify-center gap-1 shadow-md mb-4 px-[2%] py-2">
@@ -48,7 +48,7 @@ export default function Header() {
         />
         <div className="flexrc text-grey sm:gap-4 gap-2">
           <button>
-            <AiOutlineShoppingCart className="sm:text-4xl text-3xl" />
+            <AiOutlineShoppingCart className="btn sm:text-4xl text-3xl" />
           </button>
           <button>
             {main.userData.id ? (

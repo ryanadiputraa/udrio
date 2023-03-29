@@ -21,7 +21,7 @@ export default async function Home() {
               category.category
             )}&id=${category.category_id}`}
           >
-            <button className="sm:w-32 w-24 h-24 sm:text-sm text-xs p-2 text-center flexcc shadow-md rounded-lg hover:scale-105 transition-all">
+            <button className="btn sm:w-32 w-24 h-24 sm:text-sm text-xs p-2 text-center flexcc shadow-md rounded-lg transition-all">
               <Image
                 src={category.icon}
                 alt={category.category}

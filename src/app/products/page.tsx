@@ -21,7 +21,7 @@ export default function Products() {
       setProducts(data)
     }
     fetchData()
-  }, [])
+  }, [categoryId])
 
   return (
     <>
