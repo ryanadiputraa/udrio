@@ -23,6 +23,8 @@ export const useToken = () => {
     ls?.setItem("jwt_token", JSON.stringify(token))
   }
 
+  const removeToken = () => ls?.removeItem("jwt_token")
+
   const getToken = (): IToken => {
     let token: IToken
     const tokenString = ls?.getItem("jwt_token")
@@ -38,5 +40,5 @@ export const useToken = () => {
     return token
   }
 
-  return { hasValidToken, setToken, getToken }
+  return { hasValidToken, setToken, removeToken, getToken }
 }
