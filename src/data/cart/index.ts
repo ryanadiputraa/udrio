@@ -8,12 +8,17 @@ export interface ICart {
   min_order: number
 }
 
+export interface ICartPayload {
+  quantity: number
+  product_id: string
+}
+
 export async function fetchUserCart(
   headers: HeadersInit
 ): Promise<ICart[] | null> {
   try {
     const resp = await fetch(
-      `${process.env.NEXT_PUBLIC_BASE_API_URL}api/cart`,
+      `${process.env.NEXT_PUBLIC_BASE_API_URL}api/cart/`,
       {
         headers: headers,
         cache: "no-store",
@@ -24,5 +29,29 @@ export async function fetchUserCart(
   } catch (error) {
     console.error(error)
     return []
+  }
+}
+
+export async function putUserCart(
+  headers: HeadersInit,
+  payload: ICartPayload
+): Promise<boolean> {
+  try {
+    await fetch(`${process.env.NEXT_PUBLIC_BASE_API_URL}api/cart/`, {
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        ...headers,
+      },
+      method: "PUT",
+      body: JSON.stringify({
+        product_id: payload.product_id,
+        quantity: payload.quantity,
+      }),
+    })
+    return true
+  } catch (error) {
+    console.error(error)
+    return false
   }
 }

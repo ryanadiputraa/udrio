@@ -17,6 +17,7 @@ const initialState: IInitialState = {
       picture: "",
       locale: "",
     },
+    cart: [],
   },
 }
 

@@ -1,11 +1,14 @@
 "use client"
 
-import { KeyboardEvent } from "react"
+import { KeyboardEvent, useContext } from "react"
 import Image from "next/image"
 import { ChangeEvent, useState } from "react"
 
+import { AppContext } from "context"
 import { IProduct } from "data/products"
 import { formatCurrency } from "utils/currency"
+import { ICartPayload } from "data/cart"
+import { useFetch } from "hooks/fetch"
 
 interface Props {
   product: IProduct
@@ -14,6 +17,8 @@ interface Props {
 const MAX_ORDER = 1000
 
 export function ProductOrder({ product }: Props) {
+  const { main, mainDispatch } = useContext(AppContext)
+  const { updateUserCart, getUserCart } = useFetch()
   const [count, setCount] = useState<number>(product.min_order)
   const [subtotal, _] = useState<number>(product.price)
 
@@ -41,8 +46,24 @@ export function ProductOrder({ product }: Props) {
     if (disabledKey.includes(e.key)) e.preventDefault()
   }
 
-  // TODO: handle cart
-  const onAddToCart = () => {}
+  const onAddToCart = async () => {
+    const payload: ICartPayload = {
+      product_id: product.id,
+      quantity: count,
+    }
+
+    main.cart.forEach((cart) => {
+      if (cart.product_id === payload.product_id) {
+        payload.quantity = payload.quantity + cart.quantity
+        return
+      }
+    })
+    const isSuccess = await updateUserCart(payload)
+    if (isSuccess) {
+      const cart = await getUserCart()
+      if (cart) mainDispatch({ type: "SET_CART", payload: cart })
+    }
+  }
 
   // TODO: integrate direct purchase
   const onPurchase = () => {}

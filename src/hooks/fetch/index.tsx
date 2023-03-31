@@ -1,7 +1,7 @@
 "use client"
 
 import { AppContext } from "context"
-import { fetchUserCart } from "data/cart"
+import { fetchUserCart, ICartPayload, putUserCart } from "data/cart"
 import { fetchUserData } from "data/user"
 import { IToken, useToken } from "hooks/token"
 import { useContext } from "react"
@@ -45,6 +45,8 @@ export const useFetch = () => {
   const getUserData = () =>
     accessToken && !main.userData.id ? fetchUserData(authHeaders) : null
   const getUserCart = () => (accessToken ? fetchUserCart(authHeaders) : null)
+  const updateUserCart = (payload: ICartPayload) =>
+    accessToken ? putUserCart(authHeaders, payload) : null
 
-  return { getUserData, getUserCart }
+  return { getUserData, getUserCart, updateUserCart }
 }

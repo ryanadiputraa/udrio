@@ -8,9 +8,10 @@ import { BsPersonCircle } from "react-icons/bs"
 import { useContext, useState } from "react"
 
 import { AppContext } from "context"
-import { useFetchUserData } from "hooks/fetch/useFetchUserData"
 import { useOutsideClick } from "hooks/utils"
 import { useToken } from "hooks/token"
+import { useFetchUserData } from "hooks/fetch/useFetchUserData"
+import { useFetchUserCart } from "hooks/fetch/useFetchUserCart"
 
 interface IDropdownMenu {
   href: string
@@ -25,6 +26,7 @@ export default function Header() {
   const isLoggedIn = main.userData.id
 
   useFetchUserData()
+  useFetchUserCart()
   useOutsideClick(() => setIsOpenDropdown(false))
 
   const dropdownMenu: IDropdownMenu[] = [
