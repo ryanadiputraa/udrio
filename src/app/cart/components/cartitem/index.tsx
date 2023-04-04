@@ -2,10 +2,17 @@
 
 import Link from "next/link"
 import Image from "next/image"
-import { ChangeEvent, KeyboardEvent, useEffect, useState } from "react"
+import {
+  ChangeEvent,
+  KeyboardEvent,
+  useContext,
+  useEffect,
+  useState,
+} from "react"
 import { BsTrash } from "react-icons/bs"
 import { AiOutlinePlusCircle, AiOutlineMinusCircle } from "react-icons/ai"
 
+import { AppContext } from "context"
 import { ICart } from "data/cart"
 import { formatCurrency } from "utils/currency"
 import { useFetch } from "hooks/fetch"
@@ -18,7 +25,8 @@ const MAX_ORDER = 1000
 let counterTimeout: NodeJS.Timeout
 
 export function CartItem({ cartItem }: Props) {
-  const { updateUserCart } = useFetch()
+  const { main, mainDispatch } = useContext(AppContext)
+  const { updateUserCart, removeCartItem } = useFetch()
   const [count, setCount] = useState<number>(cartItem.quantity)
 
   const handleCountDown = () =>
@@ -44,6 +52,18 @@ export function CartItem({ cartItem }: Props) {
   const handleInputCountKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
     const disabledKey = ["-", "+", ",", "ArrowUp", "ArrowDown"]
     if (disabledKey.includes(e.key)) e.preventDefault()
+  }
+
+  const onDeleteCartItem = async () => {
+    const isSuccess = await removeCartItem(cartItem.product_id)
+    if (isSuccess) {
+      mainDispatch({
+        type: "SET_CART",
+        payload: main.cart.filter(
+          (cart) => cart.product_id !== cartItem.product_id
+        ),
+      })
+    }
   }
 
   useEffect(() => {
@@ -73,7 +93,10 @@ export function CartItem({ cartItem }: Props) {
           </span>
         </div>
         <div className="self-end flex gap-2">
-          <button className="btn flexrc gap-1 text-xs text-grey">
+          <button
+            className="btn flexrc gap-1 text-xs text-grey"
+            onClick={onDeleteCartItem}
+          >
             Hapus
             <BsTrash className="text-black" />
           </button>

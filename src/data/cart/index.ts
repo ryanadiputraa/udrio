@@ -55,3 +55,22 @@ export async function putUserCart(
     return false
   }
 }
+
+export async function deleteCartItem(
+  headers: HeadersInit,
+  productId: string
+): Promise<boolean> {
+  try {
+    await fetch(
+      `${process.env.NEXT_PUBLIC_BASE_API_URL}api/cart/${productId}`,
+      {
+        headers: headers,
+        method: "DELETE",
+      }
+    )
+    return true
+  } catch (error) {
+    console.error(error)
+    return false
+  }
+}
