@@ -12,8 +12,6 @@ export const useFetchUserCart = () => {
   useEffect(() => {
     const fetchData = async () => {
       const cart = await getUserCart()
-      console.log(cart)
-
       mainDispatch({ type: "SET_CART", payload: cart ?? [] })
     }
     fetchData()

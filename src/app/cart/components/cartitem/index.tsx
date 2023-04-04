@@ -1,21 +1,25 @@
 "use client"
 
+import Link from "next/link"
 import Image from "next/image"
-import { ChangeEvent, KeyboardEvent, useState } from "react"
+import { ChangeEvent, KeyboardEvent, useEffect, useState } from "react"
 import { BsTrash } from "react-icons/bs"
 import { AiOutlinePlusCircle, AiOutlineMinusCircle } from "react-icons/ai"
 
 import { ICart } from "data/cart"
 import { formatCurrency } from "utils/currency"
+import { useFetch } from "hooks/fetch"
 
 interface Props {
   cartItem: ICart
 }
 
 const MAX_ORDER = 1000
+let counterTimeout: NodeJS.Timeout
 
 export function CartItem({ cartItem }: Props) {
-  const [count, setCount] = useState<number>(cartItem.min_order)
+  const { updateUserCart } = useFetch()
+  const [count, setCount] = useState<number>(cartItem.quantity)
 
   const handleCountDown = () =>
     setCount((current) => {
@@ -36,21 +40,31 @@ export function CartItem({ cartItem }: Props) {
       return val
     })
   }
+
   const handleInputCountKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
     const disabledKey = ["-", "+", ",", "ArrowUp", "ArrowDown"]
     if (disabledKey.includes(e.key)) e.preventDefault()
   }
 
+  useEffect(() => {
+    clearTimeout(counterTimeout)
+    counterTimeout = setTimeout(async () => {
+      await updateUserCart({ product_id: cartItem.product_id, quantity: count })
+    }, 1000)
+  }, [count])
+
   return (
     <div className="flex justify-start w-full gap-4 py-2 border-b-[0.05rem] border-grey border-solid">
       <input type="checkbox" className="w-6 cursor-pointer" />
-      <Image
-        src={cartItem.image}
-        width={80}
-        height={80}
-        className="rounded-md cursor-pointer"
-        alt={cartItem.product_name}
-      />
+      <Link href={`/products/${cartItem.product_id}`}>
+        <Image
+          src={cartItem.image}
+          width={80}
+          height={80}
+          className="rounded-md cursor-pointer"
+          alt={cartItem.product_name}
+        />
+      </Link>
       <div className="w-full flex justify-between flex-wrap">
         <div>
           <h4>{cartItem.product_name}</h4>
@@ -70,7 +84,7 @@ export function CartItem({ cartItem }: Props) {
             </button>
             <input
               type="number"
-              className="w-4 outline-none text-center"
+              className="w-6 outline-none text-center"
               value={count}
               onChange={(e) => hanldeInputCount(e)}
               onKeyDown={(e) => handleInputCountKeyDown(e)}
