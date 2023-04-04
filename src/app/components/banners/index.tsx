@@ -26,7 +26,7 @@ export function Banners() {
       {...settings}
       className="banners sm:w-[103.5%] w-[108%] sm:right-[1.8%] right-[4%]"
     >
-      {banners.map((_, idx) => (
+      {banners?.map((_, idx) => (
         <img
           key={idx}
           className="rounded-xl min-h-[7rem]"

@@ -91,7 +91,7 @@ export default function Header() {
               className="py-2 text-sm text-black"
               aria-labelledby="dropdownDefaultButton"
             >
-              {dropdownMenu.map((menu, idx) => (
+              {dropdownMenu?.map((menu, idx) => (
                 <li key={idx} onClick={menu.callback}>
                   <a
                     href={menu.href}

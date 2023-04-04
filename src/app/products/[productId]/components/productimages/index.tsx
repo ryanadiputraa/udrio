@@ -42,7 +42,7 @@ export function ProductImages({ images }: Props) {
         className="rounded-lg w-full h-auto"
       />
       <Slider {...settings} className="w-full">
-        {images.map((image, idx) => (
+        {images?.map((image, idx) => (
           <Image
             key={idx}
             src={image.url}

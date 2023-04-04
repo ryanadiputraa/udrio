@@ -14,7 +14,7 @@ export default function Cart() {
       <div className="flex-[2] flexcc items-start">
         <h2 className="font-bold text-xl mb-4">Keranjang</h2>
         <div className="flexcc gap-2 items-start w-full">
-          {main.cart.map((data, idx) => (
+          {main.cart?.map((data, idx) => (
             <CartItem key={idx} cartItem={data} />
           ))}
         </div>
