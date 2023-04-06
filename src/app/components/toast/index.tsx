@@ -1,35 +1,46 @@
 "use client"
 
-import { useContext } from "react"
+import { useContext, useEffect } from "react"
 import { AiOutlineCheck, AiFillWarning } from "react-icons/ai"
 import { BiErrorCircle } from "react-icons/bi"
 
 import { AppContext } from "context"
+
+let toastTimeout: NodeJS.Timeout
 
 export default function Toast() {
   const { main, mainDispatch } = useContext(AppContext)
 
   const onClose = () => mainDispatch({ type: "CLOSE_TOAST" })
 
+  useEffect(() => {
+    clearTimeout(toastTimeout)
+    setTimeout(() => {
+      if (main.toast.isOpen) {
+        mainDispatch({ type: "CLOSE_TOAST" })
+      }
+    }, 3000)
+  }, [main.toast.isOpen])
+
   const renderToastIcon = () => {
     switch (main.toast.type) {
       case "SUCCESS":
         return (
-          <div className="inline-flex items-center justify-center flex-shrink-0 w-8 h-8  rounded-lg bg-green-800 text-green-200">
+          <div className="inline-flex items-center justify-center flex-shrink-0 w-8 h-8  rounded-lg bg-green-800 text-white">
             <AiOutlineCheck />
           </div>
         )
 
       case "ERROR":
         return (
-          <div className="inline-flex items-center justify-center flex-shrink-0 w-8 h-8 rounded-lg bg-rose-600 text-rose-200">
+          <div className="inline-flex items-center justify-center flex-shrink-0 w-8 h-8 rounded-lg bg-rose-600 text-white">
             <BiErrorCircle />
           </div>
         )
 
       case "WARNING":
         return (
-          <div className="inline-flex items-center justify-center flex-shrink-0 w-8 h-8 rounded-lg bg-yellow-600 text-yellow-200">
+          <div className="inline-flex items-center justify-center flex-shrink-0 w-8 h-8 rounded-lg bg-yellow-600 text-white">
             <AiFillWarning />
           </div>
         )
@@ -43,7 +54,7 @@ export default function Toast() {
     <div
       className={`${
         main.toast.isOpen ? "flex" : "hidden"
-      } items-center fixed bottom-2 right-2 w-full max-w-xs p-4 mb-4 text-gray-500 bg-white rounded-lg shadow dark:text-gray-400 dark:bg-gray-800`}
+      } items-center fixed bottom-2 right-2 w-full max-w-xs p-4 mb-4 text-white  rounded-lg shadow bg-gray-800`}
       role="alert"
     >
       {renderToastIcon()}
@@ -64,9 +75,9 @@ export default function Toast() {
           xmlns="http://www.w3.org/2000/svg"
         >
           <path
-            fill-rule="evenodd"
+            fillRule="evenodd"
             d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-            clip-rule="evenodd"
+            clipRule="evenodd"
           ></path>
         </svg>
       </button>

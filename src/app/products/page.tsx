@@ -17,7 +17,7 @@ export default function Products() {
 
   useEffect(() => {
     const fetchData = async () => {
-      const data = await fetchProducts(categoryId)
+      const { data } = await fetchProducts(categoryId)
       setProducts(data)
     }
     fetchData()

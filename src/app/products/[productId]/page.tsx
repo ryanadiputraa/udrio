@@ -11,7 +11,7 @@ interface Props {
 }
 
 export default async function Product({ params }: Props) {
-  const product = await fetchProductDetail(params?.productId)
+  const { data: product } = await fetchProductDetail(params?.productId)
   const categoryLink = `/products?category=${encodeURIComponent(
     String(product?.product_category.category)
   )}&id=${product?.product_category.category_id}`

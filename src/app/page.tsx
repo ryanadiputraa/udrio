@@ -7,8 +7,8 @@ import { Banners } from "./components/banners"
 import { ProductCard } from "./products/components/productcard"
 
 export default async function Home() {
-  const categories = await fetchCategories()
-  const products = await fetchProducts()
+  const { data: categories } = await fetchCategories()
+  const { data: products } = await fetchProducts()
 
   return (
     <>

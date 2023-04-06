@@ -62,11 +62,21 @@ export default function Header() {
           className="w-1/2 border-2 border-solid border-grey py-1 px-4 rounded-2xl"
         />
         <div className="flexrc text-grey sm:gap-4 gap-2">
-          <Link href={"/cart"}>
-            <button>
-              <AiOutlineShoppingCart className="btn sm:text-4xl text-3xl relative top-[0.15rem]" />
-            </button>
-          </Link>
+          {isLoggedIn ? (
+            <Link href={"/cart"}>
+              <button>
+                <AiOutlineShoppingCart className="btn sm:text-4xl text-3xl relative top-[0.15rem]" />
+              </button>
+            </Link>
+          ) : (
+            <a
+              href={`${process.env.NEXT_PUBLIC_BASE_API_URL}oauth/login/google`}
+            >
+              <button>
+                <AiOutlineShoppingCart className="btn sm:text-4xl text-3xl relative top-[0.15rem]" />
+              </button>
+            </a>
+          )}
           <button onClick={() => setIsOpenDropdown(true)}>
             {isLoggedIn ? (
               <Image

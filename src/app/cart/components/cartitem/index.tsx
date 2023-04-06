@@ -26,7 +26,7 @@ let counterTimeout: NodeJS.Timeout
 
 export function CartItem({ cartItem }: Props) {
   const { main, mainDispatch } = useContext(AppContext)
-  const { updateUserCart, removeCartItem } = useFetch()
+  const { updateUserCart, getUserCart, removeCartItem } = useFetch()
   const [count, setCount] = useState<number>(cartItem.quantity)
 
   const handleCountDown = () =>
@@ -55,13 +55,17 @@ export function CartItem({ cartItem }: Props) {
   }
 
   const onDeleteCartItem = async () => {
-    const isSuccess = await removeCartItem(cartItem.product_id)
-    if (isSuccess) {
+    const resp = await removeCartItem(cartItem.product_id)
+    if (!resp?.isError) {
       mainDispatch({
         type: "SET_CART",
         payload: main.cart.filter(
           (cart) => cart.product_id !== cartItem.product_id
         ),
+      })
+      mainDispatch({
+        type: "SHOW_TOAST",
+        payload: { message: "Produk dihapus dari keranjang", type: "SUCCESS" },
       })
     }
   }
@@ -69,7 +73,17 @@ export function CartItem({ cartItem }: Props) {
   useEffect(() => {
     clearTimeout(counterTimeout)
     counterTimeout = setTimeout(async () => {
-      await updateUserCart({ product_id: cartItem.product_id, quantity: count })
+      if (count === cartItem.quantity) return
+      const resp = await updateUserCart({
+        product_id: cartItem.product_id,
+        quantity: count,
+      })
+      if (!resp?.isError) {
+        const cartResp = await getUserCart()
+        if (cartResp?.data) {
+          mainDispatch({ type: "SET_CART", payload: cartResp.data })
+        }
+      }
     }, 1000)
   }, [count])
 

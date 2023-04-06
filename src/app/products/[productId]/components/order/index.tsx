@@ -58,10 +58,24 @@ export function ProductOrder({ product }: Props) {
         return
       }
     })
-    const isSuccess = await updateUserCart(payload)
-    if (isSuccess) {
-      const cart = await getUserCart()
-      if (cart) mainDispatch({ type: "SET_CART", payload: cart })
+    const resp = await updateUserCart(payload)
+    if (!resp?.isError) {
+      const cartResp = await getUserCart()
+      mainDispatch({
+        type: "SHOW_TOAST",
+        payload: {
+          message: "Produk ditambahkan ke keranjang",
+          type: "SUCCESS",
+        },
+      })
+      if (cartResp?.data) {
+        mainDispatch({ type: "SET_CART", payload: cartResp.data })
+      }
+    } else {
+      mainDispatch({
+        type: "SHOW_TOAST",
+        payload: { message: "Gagal menambah ke kerangjan", type: "ERROR" },
+      })
     }
   }
 

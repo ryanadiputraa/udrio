@@ -11,11 +11,16 @@ export const useFetchUserData = (): void => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const data = await getUserData()
-      if (data) {
-        mainDispatch({ type: "SET_USER_DATA", payload: data })
+      const resp = await getUserData()
+      if (resp?.isError) {
+        mainDispatch({
+          type: "SHOW_TOAST",
+          payload: { message: "Error mengambil data pengguna", type: "ERROR" },
+        })
+      } else if (resp?.data) {
+        mainDispatch({ type: "SET_USER_DATA", payload: resp.data })
       }
     }
     !main.userData.id && fetchData()
-  }, [getUserData, main.userData.id, mainDispatch])
+  }, [main.userData.id, mainDispatch])
 }
