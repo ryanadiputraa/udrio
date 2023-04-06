@@ -59,9 +59,10 @@ export function CartItem({ cartItem }: Props) {
     if (!resp?.isError) {
       mainDispatch({
         type: "SET_CART",
-        payload: main.cart.filter(
-          (cart) => cart.product_id !== cartItem.product_id
-        ),
+        payload: main.cart.filter((cart) => {
+          setCount(cart.quantity)
+          return cart.product_id !== cartItem.product_id
+        }),
       })
       mainDispatch({
         type: "SHOW_TOAST",
