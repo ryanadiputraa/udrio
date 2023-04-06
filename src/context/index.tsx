@@ -18,6 +18,11 @@ const initialState: IInitialState = {
       locale: "",
     },
     cart: [],
+    toast: {
+      isOpen: false,
+      message: "",
+      type: "SUCCESS",
+    },
   },
 }
 
