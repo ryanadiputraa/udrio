@@ -1,3 +1,5 @@
+import { FetchDataResponse } from "data"
+
 export interface IProduct {
   id: string
   product_name: string
@@ -20,7 +22,9 @@ export interface IProductImages {
   url: string
 }
 
-export async function fetchProducts(categoryId?: number): Promise<IProduct[]> {
+export async function fetchProducts(
+  categoryId?: number
+): Promise<FetchDataResponse<IProduct[]>> {
   try {
     const resp = await fetch(
       `${process.env.NEXT_PUBLIC_BASE_API_URL}api/products/${
@@ -31,25 +35,23 @@ export async function fetchProducts(categoryId?: number): Promise<IProduct[]> {
       }
     )
     const json = await resp.json()
-    return json.data
+    return { data: json.data, isError: false }
   } catch (error) {
-    console.error(error)
-    return []
+    return { data: [], isError: true }
   }
 }
 
 export async function fetchProductDetail(
   productId: string
-): Promise<IProduct | null> {
+): Promise<FetchDataResponse<IProduct | null>> {
   try {
     const resp = await fetch(
       `${process.env.NEXT_PUBLIC_BASE_API_URL}api/products/${productId}`,
       { next: { revalidate: 60 } }
     )
     const json = await resp.json()
-    return json.data
+    return { data: json.data, isError: false }
   } catch (error) {
-    console.error(error)
-    return null
+    return { data: null, isError: true }
   }
 }

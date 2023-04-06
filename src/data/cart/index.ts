@@ -1,3 +1,5 @@
+import { FetchDataResponse, FetchNoDataResponse } from "data"
+
 export interface ICart {
   quantity: number
   product_id: string
@@ -15,7 +17,7 @@ export interface ICartPayload {
 
 export async function fetchUserCart(
   headers: HeadersInit
-): Promise<ICart[] | null> {
+): Promise<FetchDataResponse<ICart[]>> {
   try {
     const resp = await fetch(
       `${process.env.NEXT_PUBLIC_BASE_API_URL}api/cart/`,
@@ -25,17 +27,16 @@ export async function fetchUserCart(
       }
     )
     const json = await resp.json()
-    return json.data
+    return { data: json.data, isError: false }
   } catch (error) {
-    console.error(error)
-    return []
+    return { data: [], isError: true }
   }
 }
 
 export async function putUserCart(
   headers: HeadersInit,
   payload: ICartPayload
-): Promise<boolean> {
+): Promise<FetchNoDataResponse> {
   try {
     await fetch(`${process.env.NEXT_PUBLIC_BASE_API_URL}api/cart/`, {
       headers: {
@@ -49,17 +50,16 @@ export async function putUserCart(
         quantity: payload.quantity,
       }),
     })
-    return true
+    return { isError: false }
   } catch (error) {
-    console.error(error)
-    return false
+    return { isError: true }
   }
 }
 
 export async function deleteCartItem(
   headers: HeadersInit,
   productId: string
-): Promise<boolean> {
+): Promise<FetchNoDataResponse> {
   try {
     await fetch(
       `${process.env.NEXT_PUBLIC_BASE_API_URL}api/cart/${productId}`,
@@ -68,9 +68,8 @@ export async function deleteCartItem(
         method: "DELETE",
       }
     )
-    return true
+    return { isError: false }
   } catch (error) {
-    console.error(error)
-    return false
+    return { isError: true }
   }
 }

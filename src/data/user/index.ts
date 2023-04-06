@@ -1,3 +1,5 @@
+import { FetchDataResponse } from "data"
+
 export interface IUserData {
   id: string
   first_name: string
@@ -9,7 +11,7 @@ export interface IUserData {
 
 export async function fetchUserData(
   headers: HeadersInit
-): Promise<IUserData | null> {
+): Promise<FetchDataResponse<IUserData | null>> {
   try {
     const resp = await fetch(
       `${process.env.NEXT_PUBLIC_BASE_API_URL}api/users/`,
@@ -19,9 +21,8 @@ export async function fetchUserData(
       }
     )
     const json = await resp.json()
-    return json.data
+    return { data: json.data, isError: false }
   } catch (error) {
-    console.error(error)
-    return null
+    return { data: null, isError: true }
   }
 }
