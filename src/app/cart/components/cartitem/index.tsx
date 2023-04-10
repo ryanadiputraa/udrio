@@ -19,12 +19,14 @@ import { useFetch } from "hooks/fetch"
 
 interface Props {
   cartItem: ICart
+  onSelectItem: (selected: ICart) => void
+  onUpdateItemCount: (id: string, count: number) => void
 }
 
 const MAX_ORDER = 1000
 let counterTimeout: NodeJS.Timeout
 
-export function CartItem({ cartItem }: Props) {
+export function CartItem({ cartItem, onSelectItem, onUpdateItemCount }: Props) {
   const { main, mainDispatch } = useContext(AppContext)
   const { updateUserCart, getUserCart, removeCartItem } = useFetch()
   const [count, setCount] = useState<number>(cartItem.quantity)
@@ -80,6 +82,7 @@ export function CartItem({ cartItem }: Props) {
         quantity: count,
       })
       if (!resp?.isError) {
+        onUpdateItemCount(cartItem.product_id, count)
         const cartResp = await getUserCart()
         if (cartResp?.data) {
           mainDispatch({ type: "SET_CART", payload: cartResp.data })
@@ -90,7 +93,11 @@ export function CartItem({ cartItem }: Props) {
 
   return (
     <div className="flex justify-start w-full gap-4 py-2 border-b-[0.05rem] border-grey border-solid">
-      <input type="checkbox" className="w-6 cursor-pointer" />
+      <input
+        type="checkbox"
+        className="w-6 cursor-pointer"
+        onClick={() => onSelectItem(cartItem)}
+      />
       <Link href={`/products/${cartItem.product_id}`}>
         <Image
           src={cartItem.image}

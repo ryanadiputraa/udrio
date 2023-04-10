@@ -27,6 +27,9 @@
   .btn-secondary {
     @apply btn text-center text-primary border-[1.5px] border-primary border-solid;
   }
+  .disabled {
+    @apply grayscale-[0.7] brightness-90 cursor-not-allowed;
+  }
 }
 
 * {
