@@ -61,10 +61,18 @@ export default function Header() {
           placeholder={"Cari..."}
           className="w-1/2 border-2 border-solid border-grey py-1 px-4 rounded-2xl"
         />
-        <div className="flexrc text-grey sm:gap-4 gap-2">
+        <div className="flexrc text-grey sm:gap-6 gap-2">
           {isLoggedIn ? (
-            <Link href={"/cart"}>
-              <button>
+            <Link href={"/cart"} className="grid items-center relative">
+              {main.cart.length ? (
+                <div
+                  style={{ gridArea: "1/1/1/1" }}
+                  className="bg-red z-10 w-1/2 h-1/2 rounded-full flexcc p-3 absolute sm:bottom-4 bottom-2 sm:left-5 left-3"
+                >
+                  <span className="text-white text-xs">{main.cart.length}</span>
+                </div>
+              ) : null}
+              <button style={{ gridArea: "1/1/1/1" }}>
                 <AiOutlineShoppingCart className="btn sm:text-4xl text-3xl relative top-[0.15rem]" />
               </button>
             </Link>
