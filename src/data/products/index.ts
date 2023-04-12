@@ -23,17 +23,18 @@ export interface IProductImages {
 }
 
 export async function fetchProducts(
-  categoryId?: number
+  categoryId?: number,
+  query?: string
 ): Promise<FetchDataResponse<IProduct[]>> {
+  let url = `${process.env.NEXT_PUBLIC_BASE_API_URL}api/products/${
+    categoryId ? `?category_id=${categoryId}&size=20` : ""
+  }`
+  if (query) url += `?query=${encodeURIComponent(query)}`
+
   try {
-    const resp = await fetch(
-      `${process.env.NEXT_PUBLIC_BASE_API_URL}api/products/${
-        categoryId ? `?category_id=${categoryId}&size=20` : ""
-      }`,
-      {
-        next: { revalidate: 60 },
-      }
-    )
+    const resp = await fetch(url, {
+      next: { revalidate: 60 },
+    })
     const json = await resp.json()
     return { data: json.data, isError: false }
   } catch (error) {

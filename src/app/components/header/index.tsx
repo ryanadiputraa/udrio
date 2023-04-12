@@ -12,6 +12,7 @@ import { useOutsideClick } from "hooks/utils"
 import { useToken } from "hooks/token"
 import { useFetchUserData } from "hooks/fetch/useFetchUserData"
 import { useFetchUserCart } from "hooks/fetch/useFetchUserCart"
+import Search from "../search"
 
 interface IDropdownMenu {
   href: string
@@ -56,11 +57,7 @@ export default function Header() {
             alt="Rio Digital Printing"
           />
         </Link>
-        <input
-          type="text"
-          placeholder={"Cari..."}
-          className="w-1/2 border-2 border-solid border-grey py-1 px-4 rounded-2xl"
-        />
+        <Search />
         <div className="flexrc text-grey sm:gap-6 gap-2">
           {isLoggedIn ? (
             <Link href={"/cart"} className="grid items-center relative">

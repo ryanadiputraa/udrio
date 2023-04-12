@@ -5,6 +5,7 @@ import Slider, { Settings } from "react-slick"
 import "slick-carousel/slick/slick.css"
 import "slick-carousel/slick/slick-theme.css"
 import "./index.css"
+import Image from "next/image"
 
 const banners = Array(12).fill(0)
 
@@ -27,8 +28,10 @@ export function Banners() {
       className="banners sm:w-[103.5%] w-[108%] sm:right-[1.8%] right-[4%]"
     >
       {banners?.map((_, idx) => (
-        <img
+        <Image
           key={idx}
+          width={800}
+          height={200}
           className="rounded-xl min-h-[7rem]"
           src={`/images/banners/banner-${idx + 1}.jpeg`}
           alt="banner"

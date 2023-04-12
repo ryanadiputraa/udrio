@@ -15,5 +15,5 @@ export const useFetchUserCart = () => {
       mainDispatch({ type: "SET_CART", payload: resp?.data ?? [] })
     }
     fetchData()
-  }, [mainDispatch])
+  }, [mainDispatch, getUserCart])
 }

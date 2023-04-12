@@ -32,7 +32,7 @@ export default function Auth(): ReactNode | Promise<ReactNode> {
       })
     }
     redirect("/")
-  }, [])
+  }, [params, mainDispatch])
 
   if (params.get("err")) return <div></div>
   return <div>{redirect("/")}</div>

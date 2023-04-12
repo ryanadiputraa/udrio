@@ -15,12 +15,12 @@ export const useFetchUserData = (): void => {
       if (resp?.isError) {
         mainDispatch({
           type: "SHOW_TOAST",
-          payload: { message: "Error mengambil data pengguna", type: "ERROR" },
+          payload: { message: "Gagal mengambil data pengguna", type: "ERROR" },
         })
       } else if (resp?.data) {
         mainDispatch({ type: "SET_USER_DATA", payload: resp.data })
       }
     }
     !main.userData.id && fetchData()
-  }, [main.userData.id, mainDispatch])
+  }, [main.userData.id, mainDispatch, getUserData])
 }

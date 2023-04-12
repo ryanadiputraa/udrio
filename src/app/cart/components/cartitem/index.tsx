@@ -89,7 +89,7 @@ export function CartItem({ cartItem, onSelectItem, onUpdateItemCount }: Props) {
         }
       }
     }, 1000)
-  }, [count])
+  }, [count]) // eslint-disable-line
 
   return (
     <div className="flex justify-start w-full gap-4 py-2 border-b-[0.05rem] border-grey border-solid">

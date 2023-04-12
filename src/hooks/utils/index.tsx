@@ -8,5 +8,5 @@ export const useOutsideClick = (callback: () => any): void => {
     root?.addEventListener("click", () => callback())
 
     return () => root?.removeEventListener("click", () => callback())
-  }, [])
+  }, []) // eslint-disable-line
 }

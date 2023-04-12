@@ -48,7 +48,7 @@ export default function Cart() {
 
   useEffect(() => {
     updateTotalPrice()
-  }, [selectedItem])
+  }, [selectedItem]) // eslint-disable-line
 
   return (
     <div className="flex justify-center sm:items-start items-center sm:flex-row flex-col gap-8">

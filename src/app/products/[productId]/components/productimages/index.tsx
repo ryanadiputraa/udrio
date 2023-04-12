@@ -19,7 +19,7 @@ interface Props {
 }
 
 export function ProductImages({ images }: Props) {
-  const [selected, setSelected] = useState<string>(images[0].url)
+  const [selected, setSelected] = useState<string>(images[0]?.url)
 
   const settings: Settings = {
     dots: false,

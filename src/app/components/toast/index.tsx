@@ -20,7 +20,7 @@ export default function Toast() {
         mainDispatch({ type: "CLOSE_TOAST" })
       }
     }, 3000)
-  }, [main.toast.isOpen])
+  }, [main.toast.isOpen, mainDispatch])
 
   const renderToastIcon = () => {
     switch (main.toast.type) {
