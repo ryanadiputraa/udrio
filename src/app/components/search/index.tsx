@@ -2,7 +2,7 @@
 
 import { fetchProducts } from "data/products"
 import { useRouter } from "next/navigation"
-import AsyncSelect from "react-select/async"
+import AsyncSelect from "react-select/async-creatable"
 
 interface IOption {
   value: string
@@ -41,13 +41,18 @@ export default function Search() {
       placeholder={"Cari..."}
       className="w-1/2 border-2 border-solid border-grey py-1 px-4 rounded-2xl"
       cacheOptions
+      defaultOptions
+      createOptionPosition="first"
       loadOptions={searchProducts}
-      defaultOptions={[]}
       noOptionsMessage={({ inputValue }) =>
         !inputValue ? "Ketik untuk mencari" : "Produk tidak ditemukan"
       }
       loadingMessage={({ inputValue }) => `Mencari ${inputValue}...`}
       onChange={(e) => router.push(`/products/${e?.value}`)}
+      onCreateOption={(inputValue) => {
+        window.location.replace(`/products?search=${inputValue}`)
+      }}
+      formatCreateLabel={(inputValue) => `Cari ${inputValue}`}
       components={{
         DropdownIndicator: () => null,
         IndicatorSeparator: () => null,

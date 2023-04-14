@@ -88,7 +88,7 @@ export default function Header() {
                 src={main.userData.picture}
                 width={30}
                 height={30}
-                className=" min-w-[2rem] rounded-full"
+                className="min-w-[2rem] rounded-full mt-1"
                 alt={main.userData.first_name}
               />
             ) : (

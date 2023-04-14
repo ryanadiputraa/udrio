@@ -12,12 +12,15 @@ export default function Products() {
   const params = useSearchParams()
   const categoryId = Number(params.get("id")) ?? 0
   const category = params.get("category") ?? ""
+  const search = params.get("search") ?? ""
 
   const [products, setProducts] = useState<IProduct[]>()
 
   useEffect(() => {
     const fetchData = async () => {
-      const { data } = await fetchProducts(categoryId)
+      const { data } = search
+        ? await fetchProducts(undefined, search)
+        : await fetchProducts(categoryId)
       setProducts(data)
     }
     fetchData()
@@ -35,7 +38,7 @@ export default function Products() {
               Beranda
             </Link>
             <MdPlayArrow />
-            {category}
+            {search ? decodeURIComponent(search) : category}
           </div>
         </div>
       </div>
