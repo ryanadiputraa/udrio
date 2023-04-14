@@ -6,7 +6,7 @@ import { AppContext } from "context"
 import { useFetch } from "."
 
 export const useFetchUserCart = () => {
-  const { mainDispatch } = useContext(AppContext)
+  const { main, mainDispatch } = useContext(AppContext)
   const { getUserCart } = useFetch()
 
   useEffect(() => {
@@ -14,6 +14,6 @@ export const useFetchUserCart = () => {
       const resp = await getUserCart()
       mainDispatch({ type: "SET_CART", payload: resp?.data ?? [] })
     }
-    fetchData()
-  }, [mainDispatch, getUserCart])
+    main.userData.id && fetchData()
+  }, [main.userData.id, mainDispatch, getUserCart])
 }
