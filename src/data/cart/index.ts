@@ -20,7 +20,7 @@ export async function fetchUserCart(
 ): Promise<FetchDataResponse<ICart[]>> {
   try {
     const resp = await fetch(
-      `${process.env.NEXT_PUBLIC_BASE_API_URL}api/cart/`,
+      `${process.env.NEXT_PUBLIC_BASE_API_URL}api/carts/`,
       {
         headers: headers,
         cache: "no-store",
@@ -38,7 +38,7 @@ export async function putUserCart(
   payload: ICartPayload
 ): Promise<FetchNoDataResponse> {
   try {
-    await fetch(`${process.env.NEXT_PUBLIC_BASE_API_URL}api/cart/`, {
+    await fetch(`${process.env.NEXT_PUBLIC_BASE_API_URL}api/carts/`, {
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json",
@@ -62,7 +62,7 @@ export async function deleteCartItem(
 ): Promise<FetchNoDataResponse> {
   try {
     await fetch(
-      `${process.env.NEXT_PUBLIC_BASE_API_URL}api/cart/${productId}`,
+      `${process.env.NEXT_PUBLIC_BASE_API_URL}api/carts/${productId}`,
       {
         headers: headers,
         method: "DELETE",
