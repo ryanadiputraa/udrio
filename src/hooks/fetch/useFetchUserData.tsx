@@ -22,5 +22,5 @@ export const useFetchUserData = (): void => {
       }
     }
     !main.userData.id && fetchData()
-  }, [main.userData.id, mainDispatch, getUserData])
+  }, [main.userData.id, mainDispatch]) // eslint-disable-line
 }

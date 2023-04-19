@@ -15,5 +15,5 @@ export const useFetchUserCart = () => {
       mainDispatch({ type: "SET_CART", payload: resp?.data ?? [] })
     }
     main.userData.id && fetchData()
-  }, [main.userData.id, mainDispatch, getUserCart])
+  }, [main.userData.id, mainDispatch]) // eslint-disable-line
 }
