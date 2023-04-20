@@ -47,6 +47,10 @@ export function ProductOrder({ product }: Props) {
   }
 
   const onAddToCart = async () => {
+    if (!main.userData.id) {
+      window.location.href = `${process.env.NEXT_PUBLIC_BASE_API_URL}oauth/login/google`
+      return
+    }
     const payload: ICartPayload = {
       product_id: product.id,
       quantity: count,

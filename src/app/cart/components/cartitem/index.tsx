@@ -57,6 +57,7 @@ export function CartItem({ cartItem, onSelectItem, onUpdateItemCount }: Props) {
   }
 
   const onDeleteCartItem = async () => {
+    onSelectItem(cartItem)
     const resp = await removeCartItem(cartItem.product_id)
     if (!resp?.isError) {
       mainDispatch({
