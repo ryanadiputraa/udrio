@@ -7,6 +7,7 @@ import {
   ICartPayload,
   putUserCart,
 } from "data/cart"
+import { fetchUserOrders, IOrderPayload, postOrder } from "data/order"
 import { fetchUserData } from "data/user"
 import { IToken, useToken } from "hooks/token"
 import { useContext } from "react"
@@ -54,6 +55,17 @@ export const useFetch = () => {
     accessToken ? putUserCart(authHeaders, payload) : null
   const removeCartItem = (productId: string) =>
     accessToken ? deleteCartItem(authHeaders, productId) : null
+  const getUserOrders = () =>
+    accessToken ? fetchUserOrders(authHeaders) : null
+  const createOrder = (payload: IOrderPayload) =>
+    accessToken ? postOrder(authHeaders, payload) : null
 
-  return { getUserData, getUserCart, updateUserCart, removeCartItem }
+  return {
+    getUserData,
+    getUserCart,
+    updateUserCart,
+    removeCartItem,
+    getUserOrders,
+    createOrder,
+  }
 }

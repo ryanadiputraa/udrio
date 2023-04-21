@@ -18,6 +18,7 @@ const initialState: IInitialState = {
       locale: "",
     },
     cart: [],
+    orders: [],
     toast: {
       isOpen: false,
       message: "",

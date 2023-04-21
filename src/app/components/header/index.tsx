@@ -33,6 +33,12 @@ export default function Header() {
   const dropdownMenu: IDropdownMenu[] = [
     {
       href: isLoggedIn
+        ? "/order"
+        : `${process.env.NEXT_PUBLIC_BASE_API_URL}oauth/login/google`,
+      name: "Pesanan",
+    },
+    {
+      href: isLoggedIn
         ? "/"
         : `${process.env.NEXT_PUBLIC_BASE_API_URL}oauth/login/google`,
       name: isLoggedIn ? "Keluar" : "Login",

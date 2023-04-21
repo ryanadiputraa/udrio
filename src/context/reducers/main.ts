@@ -1,4 +1,5 @@
 import { ICart } from "data/cart"
+import { IOrder } from "data/order"
 import { IUserData } from "data/user"
 
 export const mainReducer = (state: IMainState, action: IMainAction) => {
@@ -13,6 +14,12 @@ export const mainReducer = (state: IMainState, action: IMainAction) => {
       return {
         ...state,
         cart: action.payload,
+      }
+
+    case "SET_ORDERS":
+      return {
+        ...state,
+        orders: action.payload,
       }
 
     case "SHOW_TOAST":
@@ -45,12 +52,14 @@ export const mainReducer = (state: IMainState, action: IMainAction) => {
 export interface IMainState {
   userData: IUserData
   cart: ICart[]
+  orders: IOrder[]
   toast: Toast
 }
 
 export type IMainAction =
   | { type: "SET_USER_DATA"; payload: IUserData }
   | { type: "SET_CART"; payload: ICart[] }
+  | { type: "SET_ORDERS"; payload: IOrder[] }
   | { type: "SHOW_TOAST"; payload: ToastPayload }
   | { type: "CLOSE_TOAST"; callback?: () => any }
 
