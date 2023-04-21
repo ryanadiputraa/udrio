@@ -6,9 +6,14 @@ import { AppContext } from "context"
 import { CartItem } from "./components/cartitem"
 import { formatCurrency } from "utils/currency"
 import { ICart } from "data/cart"
+import { IOrderPayload } from "data/order"
+import { useFetch } from "hooks/fetch"
+import { useRouter } from "next/navigation"
 
 export default function Cart() {
-  const { main } = useContext(AppContext)
+  const router = useRouter()
+  const { main, mainDispatch } = useContext(AppContext)
+  const { createOrder, removeCartItem } = useFetch()
   const [selectedItem, setSelectedItem] = useState<ICart[]>([])
   const [totalPrice, setTotalPrice] = useState(0)
 
@@ -36,7 +41,6 @@ export default function Cart() {
   const onUpdateItemCount = (id: string, count: number) => {
     selectedItem.forEach((item, idx) => {
       if (item.product_id === id) {
-        console.log(item.product_id, id)
         selectedItem[idx] = {
           ...item,
           quantity: count,
@@ -44,6 +48,37 @@ export default function Cart() {
         updateTotalPrice()
       }
     })
+  }
+
+  const onOrder = async () => {
+    const payload: IOrderPayload = { orders: [] }
+    selectedItem?.forEach((item) => {
+      payload.orders.push({
+        product_id: item.product_id,
+        quantity: item.quantity,
+      })
+    })
+
+    const resp = await createOrder(payload)
+    if (resp && !resp.isError) {
+      mainDispatch({
+        type: "SHOW_TOAST",
+        payload: { type: "SUCCESS", message: "Pesanan telah dibuat" },
+      })
+      payload.orders.forEach((order) => {
+        mainDispatch({ type: "DELETE_CART_ITEM", product_id: order.product_id })
+        removeCartItem(order.product_id)
+      })
+      router.push("/order")
+    } else {
+      mainDispatch({
+        type: "SHOW_TOAST",
+        payload: {
+          type: "ERROR",
+          message: "Gagal membuat pesanan, hubungi CS untuk bantuan",
+        },
+      })
+    }
   }
 
   useEffect(() => {
@@ -75,9 +110,11 @@ export default function Cart() {
           <span>{formatCurrency(totalPrice)}</span>
         </div>
         <button
+          disabled={!totalPrice}
           className={`btn btn-primary w-full rounded-md py-1 mt-4 ${
             totalPrice ? "" : "disabled"
           }`}
+          onClick={onOrder}
         >
           Pesan
         </button>

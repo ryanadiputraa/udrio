@@ -16,6 +16,14 @@ export const mainReducer = (state: IMainState, action: IMainAction) => {
         cart: action.payload,
       }
 
+    case "DELETE_CART_ITEM":
+      return {
+        ...state,
+        cart: state.cart.filter(
+          (item) => item.product_id !== action.product_id
+        ),
+      }
+
     case "SET_ORDERS":
       return {
         ...state,
@@ -59,6 +67,7 @@ export interface IMainState {
 export type IMainAction =
   | { type: "SET_USER_DATA"; payload: IUserData }
   | { type: "SET_CART"; payload: ICart[] }
+  | { type: "DELETE_CART_ITEM"; product_id: string }
   | { type: "SET_ORDERS"; payload: IOrder[] }
   | { type: "SHOW_TOAST"; payload: ToastPayload }
   | { type: "CLOSE_TOAST"; callback?: () => any }

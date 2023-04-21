@@ -29,7 +29,7 @@ export default function Order() {
       {main.orders?.map((order, idx) => (
         <div
           key={order.order_id ?? idx}
-          className="flecc w-full gap-8 px-4 shadow-lg rounded-md mb-4 pt-2"
+          className="flecc w-full gap-8 px-4 shadow-lg rounded-md mb-10 pt-2"
         >
           <div className="flex justify-between">
             <p className="flexrc gap-1">
