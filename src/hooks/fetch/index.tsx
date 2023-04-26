@@ -55,8 +55,8 @@ export const useFetch = () => {
     accessToken ? putUserCart(authHeaders, payload) : null
   const removeCartItem = (productId: string) =>
     accessToken ? deleteCartItem(authHeaders, productId) : null
-  const getUserOrders = () =>
-    accessToken ? fetchUserOrders(authHeaders) : null
+  const getUserOrders = (size?: number, page?: number) =>
+    accessToken ? fetchUserOrders(authHeaders, size, page) : null
   const createOrder = (payload: IOrderPayload) =>
     accessToken ? postOrder(authHeaders, payload) : null
 

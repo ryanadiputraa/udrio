@@ -1,4 +1,4 @@
-import { FetchDataResponse, FetchNoDataResponse } from "data"
+import { FetchDataResponseWithPagination, FetchNoDataResponse } from "data"
 
 export interface IOrder {
   order_id: number
@@ -27,20 +27,34 @@ export interface IOrderItemPayload {
 }
 
 export async function fetchUserOrders(
-  headers: HeadersInit
-): Promise<FetchDataResponse<IOrder[]>> {
+  headers: HeadersInit,
+  size?: number,
+  page?: number
+): Promise<FetchDataResponseWithPagination<IOrder[]>> {
   try {
     const resp = await fetch(
-      `${process.env.NEXT_PUBLIC_BASE_API_URL}api/orders/`,
+      `${process.env.NEXT_PUBLIC_BASE_API_URL}api/orders/${
+        size && page ? `?size=${size}&page=${page}` : ""
+      }`,
       {
         headers: headers,
         cache: "no-store",
       }
     )
     const json = await resp.json()
-    return { data: json.data, isError: false }
+    return { data: json.data, meta: json.meta, isError: false }
   } catch (error) {
-    return { data: [], isError: true }
+    return {
+      data: [],
+      meta: {
+        current_page: 0,
+        total_data: 0,
+        total_page: 0,
+        next_page: 0,
+        previous_page: 0,
+      },
+      isError: true,
+    }
   }
 }
 

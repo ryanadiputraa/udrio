@@ -10,8 +10,7 @@ import { useContext, useState } from "react"
 import { AppContext } from "context"
 import { useOutsideClick } from "hooks/utils"
 import { useToken } from "hooks/token"
-import { useFetchUserData } from "hooks/fetch/useFetchUserData"
-import { useFetchUserCart } from "hooks/fetch/useFetchUserCart"
+import { useFetchUserData, useFetchUserCart } from "hooks/fetch/user"
 import Search from "../search"
 
 interface IDropdownMenu {

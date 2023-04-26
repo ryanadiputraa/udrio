@@ -1,27 +1,37 @@
 "use client"
 
-import { useContext, useEffect } from "react"
+import { useCallback, useContext, useRef, useState } from "react"
 import { format } from "date-fns"
 import * as Locales from "date-fns/locale"
 import { BsCalendar3 } from "react-icons/bs"
 
 import { AppContext } from "context"
-import { useFetch } from "hooks/fetch"
 import { OrderItem } from "./orderitem"
 import { formatCurrency } from "utils/currency"
+import { useFetchUserOrders } from "hooks/fetch/user"
+import Spinner from "app/components/spinner"
 
 export default function Order() {
-  const { main, mainDispatch } = useContext(AppContext)
-  const { getUserOrders } = useFetch()
+  const { main } = useContext(AppContext)
+  const [page, setPage] = useState(1)
 
-  useEffect(() => {
-    if (!main.userData.id) return
-    const fetchOrders = async () => {
-      const resp = await getUserOrders()
-      mainDispatch({ type: "SET_ORDERS", payload: resp?.data ?? [] })
-    }
-    fetchOrders()
-  }, [main.userData.id, mainDispatch]) // eslint-disable-line
+  const { isLoading, hasMore } = useFetchUserOrders(page)
+
+  const nullRef = useRef(null)
+  const observer = useRef(null) as any
+  const lastOrderRef = useCallback(
+    (node: any) => {
+      if (isLoading) return
+      if (observer.current) observer.current?.disconnect()
+      observer.current = new IntersectionObserver((entries) => {
+        if (entries?.[0]?.isIntersecting && hasMore) {
+          setPage((currentPage) => currentPage + 1)
+        }
+      })
+      if (node) observer.current.observe(node)
+    },
+    [isLoading, hasMore]
+  )
 
   return (
     <div className="sm:px-[20%] px-[10%]">
@@ -29,6 +39,7 @@ export default function Order() {
       {main.orders?.map((order, idx) => (
         <div
           key={order.order_id ?? idx}
+          ref={main.orders.length === idx + 1 ? lastOrderRef : nullRef}
           className="flecc w-full gap-8 px-4 shadow-lg rounded-md mb-10 pt-2"
         >
           <div className="flex justify-between">
@@ -58,6 +69,7 @@ export default function Order() {
           ))}
         </div>
       ))}
+      {isLoading && <Spinner />}
     </div>
   )
 }

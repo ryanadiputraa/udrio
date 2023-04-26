@@ -27,7 +27,7 @@ export async function fetchProducts(
   query?: string
 ): Promise<FetchDataResponse<IProduct[]>> {
   let url = `${process.env.NEXT_PUBLIC_BASE_API_URL}api/products/${
-    categoryId ? `?category_id=${categoryId}&size=20` : ""
+    categoryId ? `?category_id=${categoryId}&size=40` : ""
   }`
   if (query) url += `?query=${encodeURIComponent(query)}`
 
