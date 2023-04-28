@@ -8,14 +8,13 @@ import { formatCurrency } from "utils/currency"
 import { ICart } from "data/cart"
 import { IOrderPayload } from "data/order"
 import { useFetch } from "hooks/fetch"
-import { useRouter } from "next/navigation"
 
 export default function Cart() {
-  const router = useRouter()
   const { main, mainDispatch } = useContext(AppContext)
   const { createOrder, removeCartItem } = useFetch()
   const [selectedItem, setSelectedItem] = useState<ICart[]>([])
   const [totalPrice, setTotalPrice] = useState(0)
+  const [onCreateOrder, setOnCreateOrder] = useState(false)
 
   const updateTotalPrice = () =>
     setTotalPrice(
@@ -51,6 +50,7 @@ export default function Cart() {
   }
 
   const onOrder = async () => {
+    setOnCreateOrder(true)
     const payload: IOrderPayload = { orders: [] }
     selectedItem?.forEach((item) => {
       payload.orders.push({
@@ -69,7 +69,7 @@ export default function Cart() {
         mainDispatch({ type: "DELETE_CART_ITEM", product_id: order.product_id })
         removeCartItem(order.product_id)
       })
-      router.push("/order")
+      window.location.replace("/order")
     } else {
       mainDispatch({
         type: "SHOW_TOAST",
@@ -79,6 +79,7 @@ export default function Cart() {
         },
       })
     }
+    setOnCreateOrder(false)
   }
 
   useEffect(() => {
@@ -110,9 +111,9 @@ export default function Cart() {
           <span>{formatCurrency(totalPrice)}</span>
         </div>
         <button
-          disabled={!totalPrice}
+          disabled={!totalPrice || onCreateOrder}
           className={`btn btn-primary w-full rounded-md py-1 mt-4 ${
-            totalPrice ? "" : "disabled"
+            !totalPrice || onCreateOrder ? "disabled" : ""
           }`}
           onClick={onOrder}
         >

@@ -9,6 +9,7 @@ import { IProduct } from "data/products"
 import { formatCurrency } from "utils/currency"
 import { ICartPayload } from "data/cart"
 import { useFetch } from "hooks/fetch"
+import { IOrderPayload } from "data/order"
 
 interface Props {
   product: IProduct
@@ -18,9 +19,10 @@ const MAX_ORDER = 1000
 
 export function ProductOrder({ product }: Props) {
   const { main, mainDispatch } = useContext(AppContext)
-  const { updateUserCart, getUserCart } = useFetch()
+  const { updateUserCart, getUserCart, createOrder } = useFetch()
   const [count, setCount] = useState<number>(product.min_order)
   const [subtotal, _] = useState<number>(product.price)
+  const [onPurchasing, setOnPurchasing] = useState(false)
 
   const handleCountDown = () =>
     setCount((current) => {
@@ -83,8 +85,30 @@ export function ProductOrder({ product }: Props) {
     }
   }
 
-  // TODO: integrate direct purchase
-  const onPurchase = () => {}
+  const onPurchase = async () => {
+    setOnPurchasing(true)
+    const payload: IOrderPayload = {
+      orders: [{ product_id: product.id, quantity: count }],
+    }
+
+    const resp = await createOrder(payload)
+    if (resp && !resp.isError) {
+      mainDispatch({
+        type: "SHOW_TOAST",
+        payload: { type: "SUCCESS", message: "Pesanan telah dibuat" },
+      })
+      window.location.replace("/order")
+    } else {
+      mainDispatch({
+        type: "SHOW_TOAST",
+        payload: {
+          type: "ERROR",
+          message: "Gagal membuat pesanan, hubungi CS untuk bantuan",
+        },
+      })
+    }
+    setOnPurchasing(false)
+  }
 
   return (
     <div className="sm:w-1/4 w-full border-grey border-2 rounded-lg px-4 py-2">
@@ -139,7 +163,10 @@ export function ProductOrder({ product }: Props) {
         + Keranjang
       </button>
       <button
-        className="btn-secondary w-full font-medium rounded-md py-1 mt-1"
+        disabled={onPurchasing}
+        className={`btn-secondary w-full font-medium rounded-md py-1 mt-1 ${
+          onPurchasing ? "disabled" : ""
+        }`}
         onClick={onPurchase}
       >
         Beli Langsung
