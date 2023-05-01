@@ -14,10 +14,9 @@ export function ProductDetails({ product }: Props) {
     <div className="sm:w-2/4 w-full sm:px-8 px-2 flex flex-col gap-1">
       <h2 className="text-xl font-bold ">{product.product_name}</h2>
       <span className="flexrc justify-start text-sm gap-1">
-        <Image
+        <img
           src={product.product_category.icon}
-          width={20}
-          height={20}
+          className="w-5 h-5"
           alt={product.product_category.category}
         />
         {product.product_category.category}

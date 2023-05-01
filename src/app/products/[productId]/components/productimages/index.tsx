@@ -13,6 +13,7 @@ import "slick-carousel/slick/slick.css"
 import "slick-carousel/slick/slick-theme.css"
 
 import { IProductImages } from "data/products"
+import ImagePlaceholder from "assets/svg/placeholder.svg"
 
 interface Props {
   images: IProductImages[]
@@ -35,7 +36,7 @@ export function ProductImages({ images }: Props) {
   return (
     <div className="sm:w-1/4 w-full flex flex-col gap-1">
       <Image
-        src={selected}
+        src={selected ?? ImagePlaceholder}
         width={400}
         height={600}
         alt={selected}

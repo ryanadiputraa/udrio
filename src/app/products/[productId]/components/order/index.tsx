@@ -10,6 +10,7 @@ import { formatCurrency } from "utils/currency"
 import { ICartPayload } from "data/cart"
 import { useFetch } from "hooks/fetch"
 import { IOrderPayload } from "data/order"
+import ImagePlaceholder from "assets/svg/placeholder.svg"
 
 interface Props {
   product: IProduct
@@ -115,8 +116,8 @@ export function ProductOrder({ product }: Props) {
       <h4 className="text-md font-bold">Pemesanan</h4>
       <span className="flex items-center gap-1 border-grey border-b-[1px] py-2">
         <Image
-          src={product.images?.[0]?.url ?? ""}
-          className="rounded-md w-auto"
+          src={product.images?.[0]?.url ?? ImagePlaceholder}
+          className={`rounded-md w-16`}
           width={45}
           height={65}
           alt={product.product_name}

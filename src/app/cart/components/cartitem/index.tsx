@@ -16,6 +16,7 @@ import { AppContext } from "context"
 import { ICart } from "data/cart"
 import { formatCurrency } from "utils/currency"
 import { useFetch } from "hooks/fetch"
+import ImagePlaceholder from "assets/svg/placeholder.svg"
 
 interface Props {
   cartItem: ICart
@@ -101,7 +102,7 @@ export function CartItem({ cartItem, onSelectItem, onUpdateItemCount }: Props) {
       />
       <Link href={`/products/${cartItem.product_id}`}>
         <Image
-          src={cartItem.image}
+          src={cartItem.image ? cartItem.image : ImagePlaceholder}
           width={80}
           height={80}
           className="rounded-md cursor-pointer"

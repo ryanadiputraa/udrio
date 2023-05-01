@@ -2,6 +2,7 @@ import Image from "next/image"
 
 import { IProduct } from "data/products"
 import { formatCurrency } from "utils/currency"
+import ImagePlaceholder from "assets/svg/placeholder.svg"
 
 interface Props {
   product: IProduct
@@ -11,11 +12,11 @@ export function ProductCard({ product }: Props) {
   return (
     <div className="sm:w-56 w-36 sm:min-h-[22rem] min-h-[16.5rem] shadow-2xl rounded-xl hover:scale-105 transition-all overflow-hidden">
       <Image
-        src={product.images?.[0]?.url ?? ""}
+        src={product.images?.[0]?.url ?? ImagePlaceholder}
         width={120}
         height={200}
         alt={product.product_name}
-        className="w-full h-auto"
+        className={`w-full h-auto ${product.images?.[0]?.url ? "" : "p-4"}`}
       />
       <div className="py-2 px-4">
         <h4 className="font-bold sm:text-md text:sm line-clamp-2">

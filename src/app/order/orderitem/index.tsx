@@ -5,6 +5,7 @@ import Link from "next/link"
 
 import { IOrderItem } from "data/order"
 import { formatCurrency } from "utils/currency"
+import ImagePlaceholder from "assets/svg/placeholder.svg"
 
 interface Props {
   item: IOrderItem
@@ -23,7 +24,7 @@ export function OrderItem({ item, totalItems, idx }: Props) {
     >
       <Link href={`/products/${item.product_id}`}>
         <Image
-          src={item.image}
+          src={item.image ? item.image : ImagePlaceholder}
           width={80}
           height={80}
           className="rounded-md cursor-pointer"
