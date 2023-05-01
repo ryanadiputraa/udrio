@@ -21,12 +21,11 @@ export default async function Home() {
               category.category
             )}&id=${category.category_id}`}
           >
-            <button className="btn sm:w-32 w-24 h-24 sm:text-sm text-xs p-2 text-center flexcc shadow-md rounded-lg transition-all">
-              <Image
+            <button className="btn sm:w-32 w-24 h-24 sm:text-sm text-xs p-2 text-center flexcc gap-1 shadow-md rounded-lg transition-all">
+              <img
+                className="w-1/3 max-h-full"
                 src={category.icon}
                 alt={category.category}
-                width={40}
-                height={40}
               />
               <span>{category.category}</span>
             </button>

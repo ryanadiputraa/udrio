@@ -11,7 +11,8 @@ export async function fetchCategories(): Promise<
 > {
   try {
     const resp = await fetch(
-      `${process.env.NEXT_PUBLIC_BASE_API_URL}api/categories/`
+      `${process.env.NEXT_PUBLIC_BASE_API_URL}api/categories/`,
+      { next: { revalidate: 60 } }
     )
     const json = await resp.json()
     return { data: json.data, isError: false }
