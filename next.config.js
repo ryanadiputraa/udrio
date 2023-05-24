@@ -4,7 +4,11 @@ const nextConfig = {
     appDir: true,
   },
   images: {
-    domains: ["www.riodigitalprint.com", "lh3.googleusercontent.com"],
+    domains: [
+      "www.riodigitalprint.com",
+      "lh3.googleusercontent.com",
+      "firebasestorage.googleapis.com",
+    ],
   },
 }
 

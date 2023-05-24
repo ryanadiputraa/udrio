@@ -31,9 +31,13 @@ export default async function Home() {
           </Link>
         ))}
       </div>
-      <div className="flex sm:justify-start justify-center sm:gap-6 gap-3 items-start flex-wrap">
+      <div className="flex justify-center sm:gap-6 gap-3 items-start flex-wrap">
         {products?.map((product) => (
-          <Link href={`/products/${product.id}`} key={product.id}>
+          <Link
+            className="sm:w-56 w-40 sm:h-[23rem] h-72"
+            href={`/products/${product.id}`}
+            key={product.id}
+          >
             <ProductCard product={product} />
           </Link>
         ))}
