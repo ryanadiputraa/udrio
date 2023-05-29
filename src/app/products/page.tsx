@@ -44,7 +44,11 @@ export default function Products() {
       </div>
       <div className="flex sm:justify-start justify-center sm:gap-6 gap-3 items-start flex-wrap sm:pt-52 pt-40 px-[2%]">
         {products?.map((product) => (
-          <Link href={`/products/${product.id}`} key={product.id}>
+          <Link
+            className="sm:w-56 w-40 sm:h-[23rem] h-72"
+            href={`/products/${product.id}`}
+            key={product.id}
+          >
             <ProductCard product={product} />
           </Link>
         ))}

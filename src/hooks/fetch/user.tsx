@@ -50,7 +50,10 @@ export const useFetchUserOrders = (page: number) => {
       const resp = await getUserOrders(10, page)
       mainDispatch({
         type: "SET_ORDERS",
-        payload: [...main.orders, ...(resp?.data ?? [])] ?? main.orders,
+        payload:
+          page === 1
+            ? resp?.data ?? []
+            : [...main.orders, ...(resp?.data ?? [])] ?? main.orders,
       })
       setHasMore(resp?.meta?.next_page !== resp?.meta?.current_page)
       setIsLoading(false)

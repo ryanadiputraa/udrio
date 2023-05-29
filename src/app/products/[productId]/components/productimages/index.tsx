@@ -40,9 +40,9 @@ export function ProductImages({ images }: Props) {
         width={400}
         height={600}
         alt={selected}
-        className="rounded-lg w-full h-auto"
+        className="rounded-lg w-full h-auto mb-2"
       />
-      <Slider {...settings} className="w-full">
+      <Slider {...settings} className="w-full mb-8">
         {images?.map((image, idx) => (
           <Image
             key={idx}
@@ -50,7 +50,7 @@ export function ProductImages({ images }: Props) {
             width={100}
             height={100}
             alt={image.url}
-            className="p-2 w-20 h-auto cursor-pointer rounded-xl"
+            className="p-2 w-20 h-auto cursor-pointer rounded-xl border-2 border-grey border-solid"
             onClick={() => setSelected(image.url)}
           />
         ))}
