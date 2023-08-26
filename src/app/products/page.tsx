@@ -42,7 +42,7 @@ export default function Products() {
           </div>
         </div>
       </div>
-      <div className="flex sm:justify-start justify-center sm:gap-6 gap-3 items-start flex-wrap sm:pt-52 pt-40 px-[2%]">
+      <div className="flex sm:justify-start justify-center sm:gap-6 gap-3 items-start flex-wrap sm:pt-52 pt-40">
         {products?.map((product) => (
           <Link
             className="sm:w-56 w-40 sm:h-[23rem] h-72"

@@ -49,7 +49,15 @@ export default function Header() {
     <header className="flex w-full flex-col justify-center gap-1 shadow-md mb-4 px-[2%] py-2">
       <span className="flex items-center sm:text-sm text-xs text-grey">
         <IoLocationOutline />
-        Jl.Tadulako, Palu | <AiOutlinePhone /> 08114548080
+        Jl.Tadulako, Palu |{" "}
+        <a
+          className="flex items-center ml-1"
+          href="https://wa.me/08114548080"
+          target="_blank"
+          rel="noreferrer"
+        >
+          <AiOutlinePhone /> 08114548080
+        </a>
       </span>
       <div className="flex justify-between items-center gap-4">
         <Link href={"/"}>
